@@ -1,0 +1,49 @@
+{
+    "version": "1.5.0",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "emitDecoratorMetadata": false,
+        "sourceMap": false,
+        "outDir": "deploy/app",
+        "experimentalDecorators": true,
+        "isolatedModules": false,
+        "noEmitHelpers": true,
+        "noResolve": true
+    },
+    "compileOnSave": false,
+    "filesGlob": [
+        "!./src/br/**/view/*.ts",
+        "!./node_modules/**/*.ts",
+        "!./deploy/node_modules/**/*.ts",
+        "./src/lib/velocity/velocity.d.ts",
+        "./src/config/sequelizedb.ts",
+        "./src/lib/router/*.d.ts",
+        "./src/lib/express/*.d.ts",
+        "./src/lib/node/node.d.ts",
+        "./src/lib/sequelize/sequelize.d.ts",
+        "./src/br/**/controller/*.ts",
+        "./src/br/**/model/*.ts"
+    ],
+    "files": [
+        "src/lib/velocity/velocity.d.ts",
+        "src/config/sequelizedb.ts",
+        "src/lib/router/DinRoute.d.ts",
+        "src/lib/router/router.d.ts",
+        "src/lib/express/express-middleware.d.ts",
+        "src/lib/express/express.d.ts",
+        "src/lib/node/node.d.ts",
+        "src/lib/sequelize/sequelize.d.ts",
+        "src/br/underdesk/gerador/controller/Gerador.ts",
+        "src/br/underdesk/tabela/controller/Tabela.ts",
+        "src/br/underdesk/tabela/controller/TabelaCampo.ts",
+        "src/br/underdesk/tabela/model/ITabela.ts",
+        "src/br/underdesk/tabela/model/ITabelaCampo.ts",
+        "src/br/underdesk/tabela/model/tabela.ts",
+        "src/br/underdesk/tabela/model/tabelacampo.ts"
+    ]
+}

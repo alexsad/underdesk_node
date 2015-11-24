@@ -1,0 +1,26 @@
+#set( $count = 0 )
+
+${tab}#if($classe.getIdTabela() > 1),#end{
+${tab}${tab}"idTabela":${classe.getIdTabela()}
+${tab}${tab},"caminho":"${classe.getPrimaryKey().getCaminho()}"
+${tab}${tab},"dsTabela":"${classe.getDsTabela()}"
+${tab}${tab},"dominio":"${classe.getDominio().toLowerCase()}"
+${tab}${tab},"pacote":"${classe.getPacote()}"
+${tab}${tab},"tipo":"${classe.getTipo()}"
+${tab}${tab},"chavePrimaria":"${classe.getPrimaryKey().getColuna()}"
+${tab}${tab},"tpGeracao":"increment"
+${tab}${tab},"imports":[]
+${tab}${tab},"campo":[
+#foreach ($campo in $classe.getAllCampos())	
+#set( $count = $count+1 )
+${tab}${tab}${tab}#if($count > 1),#end{
+${tab}${tab}${tab}${tab}"idTabelaCampo":${campo.getIdTabelaCampo()}
+${tab}${tab}${tab}${tab},"campo":"${campo.getColunaLogical()}"
+${tab}${tab}${tab}${tab},"tipo":"${campo.getSQLTipo().toLowerCase()}"
+${tab}${tab}${tab}${tab},"dsCampo":"${campo.getDsCampo()}"
+${tab}${tab}${tab}${tab},"limite":${campo.getLimite()}
+${tab}${tab}${tab}${tab},"snNull":"${campo.getSnNull()}"
+${tab}${tab}${tab}}
+#end	
+${tab}${tab}]
+${tab}}
