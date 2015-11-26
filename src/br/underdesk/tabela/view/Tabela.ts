@@ -29,6 +29,7 @@ export class Tabela extends ModWindow{
     //itSnNodeRouteJs:CheckBox;
     //itrs:null;
     btGerarCodigo:Button;
+    btImportarCodigo:Button;
     mainList:ListView;
     mainTb:ToolBar;
     _modTabelaCampo:TabelaCampo;
@@ -105,35 +106,35 @@ export class Tabela extends ModWindow{
 
 
         this.itSnModelJava = new CheckBox("Model java:", "Sim");
-        this.itSnModelJava.setEnable(true);
+        this.itSnModelJava.setEnable(false);
         this.itSnModelJava.setSize(4);
         this.itSnModelJava.setCheckedValue("JAVA@java");
         this.itSnModelJava.setUnCheckedValue("");
         this.append(this.itSnModelJava);
 
         this.itSnDaoJava = new CheckBox("DAO java:", "Sim");
-        this.itSnDaoJava.setEnable(true);
+        this.itSnDaoJava.setEnable(false);
         this.itSnDaoJava.setSize(4);
         this.itSnDaoJava.setCheckedValue("DAO@java");
         this.itSnDaoJava.setUnCheckedValue("");
         this.append(this.itSnDaoJava);
 
         this.itSnBLLJava = new CheckBox("BLL java:", "Sim");
-        this.itSnBLLJava.setEnable(true);
+        this.itSnBLLJava.setEnable(false);
         this.itSnBLLJava.setSize(4);
         this.itSnBLLJava.setCheckedValue("BLL@java");
         this.itSnBLLJava.setUnCheckedValue("");
         this.append(this.itSnBLLJava);
 
         this.itSnViewTypeScript = new CheckBox("Visual com TScript:", "Sim");
-        this.itSnViewTypeScript.setEnable(true);
+        this.itSnViewTypeScript.setEnable(false);
         this.itSnViewTypeScript.setSize(7);
         this.itSnViewTypeScript.setCheckedValue("TYPESCRIPT_VIEW@ts");
         this.itSnViewTypeScript.setUnCheckedValue("");
         this.append(this.itSnViewTypeScript);
 
         this.itSnItemViewHtml = new CheckBox("Item View HTML:", "Sim");
-        this.itSnItemViewHtml.setEnable(true);
+        this.itSnItemViewHtml.setEnable(false);
         this.itSnItemViewHtml.setSize(5);
         this.itSnItemViewHtml.setCheckedValue("HTML_ITEMVIEW@html");
         this.itSnItemViewHtml.setUnCheckedValue("");
@@ -141,7 +142,7 @@ export class Tabela extends ModWindow{
 
 
         this.itSnTypeScriptNodeInterface = new CheckBox("TScript Interface:", "Sim");
-        this.itSnTypeScriptNodeInterface.setEnable(true);
+        this.itSnTypeScriptNodeInterface.setEnable(false);
         this.itSnTypeScriptNodeInterface.setSize(4);
         this.itSnTypeScriptNodeInterface.setCheckedValue("TYPESCRIPT_NODE_INTERFACE@ts");
         this.itSnTypeScriptNodeInterface.setUnCheckedValue("");
@@ -149,14 +150,14 @@ export class Tabela extends ModWindow{
 
 
         this.itSnTypeScriptNodeSchema = new CheckBox("TScript Schema:", "Sim");
-        this.itSnTypeScriptNodeSchema.setEnable(true);
+        this.itSnTypeScriptNodeSchema.setEnable(false);
         this.itSnTypeScriptNodeSchema.setSize(4);
         this.itSnTypeScriptNodeSchema.setCheckedValue("TYPESCRIPT_NODE_SCHEMA@ts");
         this.itSnTypeScriptNodeSchema.setUnCheckedValue("");
         this.append(this.itSnTypeScriptNodeSchema);
 
         this.itSnTypeScriptNodeBLL = new CheckBox("TScript BLL:", "Sim");
-        this.itSnTypeScriptNodeBLL.setEnable(true);
+        this.itSnTypeScriptNodeBLL.setEnable(false);
         this.itSnTypeScriptNodeBLL.setSize(4);
         this.itSnTypeScriptNodeBLL.setCheckedValue("TYPESCRIPT_NODE_BLL@ts");
         this.itSnTypeScriptNodeBLL.setUnCheckedValue("");
@@ -178,6 +179,14 @@ export class Tabela extends ModWindow{
         this.btGerarCodigo.setIcon("check");
         this.btGerarCodigo.addEvent('click',this.gerarCodigo.bind(this));
         this.mainTb.addButton(this.btGerarCodigo);
+
+        this.btImportarCodigo = new Button("Importar");
+        this.btImportarCodigo.setIcon("cloud-download");
+        this.btImportarCodigo.addEvent('click',this.importar.bind(this));
+        this.mainTb.addButton(this.btImportarCodigo);
+
+
+
 
         //this.addAssociation({"mod":"br.net.underdesk.codigogerador.view.TabelaCampo","act":"getCampos","puid":this.getVarModule()});
 
@@ -212,26 +221,29 @@ export class Tabela extends ModWindow{
                 }
                 ,"onLoad":function(dta:string[]){
                     //this.itrs.setValue(dta);
-                    
+
                     this._modArquivoView.addArquivo({
                         tmArquivo:100
                         ,dsArquivo:dta[0]
-                        ,snPasta:'S'                        
+                        ,snPasta:'S'
                         ,icone:'folder-close'
                     });
                     this._modArquivoView.addArquivo({
                         tmArquivo:100
                         ,dsArquivo:dta[0]+".zip"
-                        ,snPasta:'N'                       
+                        ,snPasta:'N'
                         ,icone:'compressed'
                     });
-                   
+
                     this._modArquivoView.reload();
                 }.bind(this)
         });
         */
     }
-    importar():void{
+    importar(evt?:Event):void{
+        if(evt){
+            evt.preventDefault();
+        };
         RequestManager.addRequest({
             rootUrl:""
             , url: "http://hm9.no-ip.biz:8330/tabela"
@@ -264,21 +276,21 @@ export class Tabela extends ModWindow{
                                             , data: itTabelaCampo
                                             , onLoad: function(id_teste2: number) {
                                                 console.log("adicionado tabela_campo com id" + id_teste2);
-                                            }
+                                            }.bind(this)
                                         });
                                     });
-                                }
+                                }.bind(this)
                             });
 
 
-                        }
+                        }.bind(this)
                     });
 
-                });
+                }.bind(this));
 
 
 
-            }
+            }.bind(this)
         });
     }
     gerarCodigo(evt?:Event):void{
@@ -343,7 +355,7 @@ export class Tabela extends ModWindow{
         var tabSelection = Object.merge({
             "idTabela":tabela.itidTabela.getValue()
             ,"tpTemplate":tabela.ittipoTemplate.getValue()
-           
+
             ,"exportsto":[tabela.ittipoTemplate.getValue()]
             },this.getMainList().getSelectedItem());
 
