@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	grunt.initConfig({		
+	grunt.initConfig({
 		replace: {
 			viewjs:{
 				expand: true,
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 					}
 				]
 		  }
-		}		
+		}
 		,copy: {
 			view:{
 				expand: true,
@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 				"**/view/*.js"
 				],
 				dest: 'public/js/br'
-			}		
+			}
 			,viewAssets:{
 				expand: true,
 				cwd: '../src/br',
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 					"**/view/assets/**"
 				],
 				dest: 'public/js/br'
-			}	
+			}
 			,serverResources:{
 				expand: true,
 				cwd: '../src/br',
@@ -36,7 +36,27 @@ module.exports = function(grunt) {
 					"**/gerador/resource/template/**"
 				],
 				dest: 'app/br'
-			}	
+			}
+			,jsLibs:{
+				expand: true,
+				cwd: './bower_components',
+				src: [
+					'!underas/'
+					,"**/*min.js"
+					,"**/require.js"
+				],
+				dest: 'public/js/lib'
+			}
+			,jsLibsNotMin:{
+				expand: true,
+				cwd: './bower_components/underas/dist/js/lib',
+				src: [
+					"bootstrap/**/*.*"
+					,"underas/**/*.*"
+					,"util/**/*.*"
+				],
+				dest: 'public/js/lib'
+			}
 		}
 		,clean: {
 			server: {
@@ -50,7 +70,7 @@ module.exports = function(grunt) {
 			options: {
 				separator: ';'
 			}
-		}	 
+		}
 		,uglify: {
 			view: {
 				files: [{
@@ -74,12 +94,17 @@ module.exports = function(grunt) {
 		}
 		,ts: {
 		  view : {
-			tsconfig: "../tsconfigview.json"
+				tsconfig: "../tsconfigview.json"
 		  }
 		  ,server : {
-			tsconfig: "../tsconfigserver.json"
+				tsconfig: "../tsconfigserver.json"
 		  }
-		}	
+		}
+		,bower: {
+			install: {
+				 //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+			}
+		}
 });
 
 
@@ -98,7 +123,7 @@ module.exports = function(grunt) {
 				if(contentFile.indexOf("})(container_1.ModWindow);")){
 					contentFile = contentFile.replace(/(_super\.call\(this,.*)/,"$1 this.setUrlModule('"+abspath.replace("public/","").replace(/\//g,".").replace(".js","")+"');");
 					grunt.file.write(abspath, contentFile);
-					grunt.log.writeln('File "' + abspath + '" modified.');
+					//grunt.log.writeln('File "' + abspath + '" modified.');
 				}
 			};
 		});
@@ -112,19 +137,19 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-bower-task');
 
 
 	grunt.registerTask('default', ['build-dev']);
-	//grunt.registerTask('dist', ['clean', 'copy']);		
-	grunt.registerTask('build-server-dev', ['clean:server','ts:server','copy:serverResources']);	
+	//grunt.registerTask('dist', ['clean', 'copy']);
+	grunt.registerTask('build-server-dev', ['clean:server','ts:server','copy:serverResources']);
 	grunt.registerTask('build-server-deploy', ['build-server-dev','uglify:server']);
 	grunt.registerTask('build-view-dev', ['clean:client','ts:view','copy:viewAssets','replace:viewjs','build-view-pos']);
 	grunt.registerTask('build-view-deploy', ['build-view-dev','uglify:view']);
-	grunt.registerTask('build-dev', ['build-server-dev','build-view-dev']);	
+	grunt.registerTask('build-dev', ['build-server-dev','build-view-dev']);
 	grunt.registerTask('build-deploy', ['build-server-deploy','build-view-deploy']);
-	
-	//grunt.registerTask('build-deploy', ['build-all','uglify:minview']);
-	
+	grunt.registerTask('install-deps', ['bower:install','copy:jsLibs','copy:jsLibsNotMin']);
+
 
 
 };

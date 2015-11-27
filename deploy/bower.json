@@ -1,0 +1,12 @@
+{
+  "name": "underdesk-js",
+  "description": "",
+  "version": "0.1.0",
+  "private": true,
+  "ignore": [],
+  "dependencies": {
+    "jquery": "~1.11.3"
+    ,"requirejs":"~2.1.8"
+    ,"underas":"https://github.com/alexsad/underas.git"
+  }
+}

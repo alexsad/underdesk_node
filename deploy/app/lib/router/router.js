@@ -1,4 +1,4 @@
-var DinRoute_1 = require("./DinRoute");
+var app = require("../../../server");
 function methodDecoratorFactory(verbName) {
     return function (path) {
         return function (target, handlerName, descriptor) {
@@ -30,7 +30,7 @@ function Controller(p_root) {
         ;
         tmpConfig.$$controllerConfiguration.routes.forEach(function (route) {
             console.log(p_root + route.url+" "+route.verb);
-            DinRoute_1.DinRoute.getApp()[route.verb](p_root + route.url, target.prototype[route.handlerName]);
+            app.server[route.verb](p_root + route.url, target.prototype[route.handlerName]);
         });
     };
 }
@@ -38,5 +38,5 @@ exports.Controller = Controller;
 exports.Get = methodDecoratorFactory('get');
 exports.Post = methodDecoratorFactory('post');
 exports.Put = methodDecoratorFactory('put');
-exports.Delete = methodDecoratorFactory('delete');
+exports.Delete = methodDecoratorFactory('del');
 exports.Patch = methodDecoratorFactory('patch');
