@@ -1,4 +1,4 @@
-import express = require('express');
+import server = require('restify');
 import {Get, Post, Put, Delete, Controller} from "../../../../lib/router/router";
 import TabelaCampoDAO = require("../model/tabelacampo");
 import {ITabelaCampo} from "../model/ITabelaCampo";
@@ -6,7 +6,7 @@ import {ITabelaCampo} from "../model/ITabelaCampo";
 @Controller()
 export class TabelaCampo {
 	@Get()
-	get(req: express.Request, res: express.Response): void {
+	get(req: server.Request, res: server.Response): void {
 		TabelaCampoDAO.findAll().then(function(dta: ITabelaCampo[]) {
 			res.json(dta);
 		}).catch(function(err: any) {
@@ -15,7 +15,7 @@ export class TabelaCampo {
 	}
 
 	@Get("/getbyidtabela/:_id")
-	getByIdTabelaService(req: express.Request, res: express.Response): void {
+	getByIdTabelaService(req: server.Request, res: server.Response): void {
 		TabelaCampoDAO.findAll({
 			where:{
 				idTabela: req.params._id
@@ -36,7 +36,7 @@ export class TabelaCampo {
 	}
 
 	@Post()
-	add(req: express.Request, res: express.Response): void {
+	add(req: server.Request, res: server.Response): void {
 		var ntabelacampo: ITabelaCampo = <ITabelaCampo>req.body;
 		//console.log(ntabelacampo);
 		TabelaCampoDAO.create(ntabelacampo).then(function(p_ntabelacampo: ITabelaCampo) {
@@ -46,7 +46,7 @@ export class TabelaCampo {
 		});
 	}
 	@Put()
-	atualizar(req: express.Request, res: express.Response): void {
+	atualizar(req: server.Request, res: server.Response): void {
 		var ntabelacampo: ITabelaCampo = <ITabelaCampo>req.body;
 		TabelaCampoDAO.upsert(ntabelacampo).then(function(p_ntabelacampo: ITabelaCampo) {
 			res.send(true);
@@ -55,7 +55,7 @@ export class TabelaCampo {
 		});
 	}
 	@Delete("/:_id")
-	delete(req: express.Request, res: express.Response): void {
+	delete(req: server.Request, res: server.Response): void {
 		TabelaCampoDAO.destroy({
 			where: {
 				id: req.params._id

@@ -1,18 +1,14 @@
-import express = require('express');
+import server = require('restify');
 import velocity = require('velocity');
-
 import {Get, Post, Put, Delete, Controller} from "../../../../lib/router/router";
-
 import {ITabela} from "../../tabela/model/ITabela";
 import {ITabelaCampo} from "../../tabela/model/ITabelaCampo";
-
 import {TabelaCampo} from "../../tabela/controller/TabelaCampo";
-
 
 @Controller()
 export class Gerador {
 	@Get("test")
-	getTest(req: express.Request, res: express.Response): void {
+	getTest(req: server.Request, res: server.Response): void {
 		//velocity.en
 		var Engine = velocity.Engine;
 		//var t = new Engine("");
@@ -29,7 +25,7 @@ export class Gerador {
 	}
 
 	@Post()
-	get(req: express.Request, res: express.Response): void {
+	get(req: server.Request, res: server.Response): void {
 
 		var tmpTabela: ITabela[] = <ITabela[]>req.body;
 

@@ -1,4 +1,4 @@
-import express = require('express');
+import server = require('restify');
 import {Get,Post,Put,Delete,Controller} from "../../../../lib/router/router";
 import TabelaDAO = require("../model/tabela");
 import {ITabela} from "../model/ITabela";
@@ -8,7 +8,7 @@ import {ITabelaCampo} from "../model/ITabelaCampo";
 @Controller()
 export class Tabela{
 		@Get()
-		get(req:express.Request,res:express.Response):void{
+		get(req:server.Request,res:server.Response):void{
 			TabelaDAO.findAll().then(function(dta:ITabela[]) {
 				res.json(dta);
 			}).catch(function(err:any) {
@@ -16,20 +16,20 @@ export class Tabela{
 			});
 		}
 		@Post()
-		add(req:express.Request,res:express.Response):void{
+		add(req:server.Request,res:server.Response):void{
 			var ntabela:ITabela = <ITabela>req.body;
 			//console.log(ntabela);
 			ntabela.dominio = ntabela.dominio.toLowerCase();
 			ntabela.dsTabela = ntabela.dsTabela.toLowerCase();
 			ntabela.pacote = ntabela.pacote.toLowerCase();
 			TabelaDAO.create(ntabela).then(function(p_ntabela: ITabela) {
-				res.json(p_ntabela.id);
+				res.json(p_ntabela);
 			}).catch(function(err:any) {
 				res.status(400).json(err);
 			});
 		}
 		@Put()
-		atualizar(req:express.Request,res:express.Response):void{
+		atualizar(req:server.Request,res:server.Response):void{
 			var ntabela: ITabela = <ITabela>req.body;
 			TabelaDAO.upsert(ntabela).then(function(p_ntabela: ITabela) {
 				res.send(true);
@@ -38,7 +38,7 @@ export class Tabela{
 			});
 		}
 		@Delete("/:_id")
-		delete(req:express.Request,res:express.Response):void{
+		delete(req:server.Request,res:server.Response):void{
 			TabelaDAO.destroy({
 				where: {
 					id:req.params._id
