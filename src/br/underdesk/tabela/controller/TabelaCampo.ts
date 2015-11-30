@@ -16,17 +16,13 @@ export class TabelaCampo {
 
 	@Get("/getbyidtabela/:_id")
 	getByIdTabelaService(req: server.Request, res: server.Response): void {
-		TabelaCampoDAO.findAll({
-			where:{
-				idTabela: req.params._id
-			}
-		}).then(function(dta: ITabelaCampo[]) {
+		this.getByIdTabela(req.params._id).then(function(dta: ITabelaCampo[]) {
 			res.json(dta);
 		}).catch(function(err: any) {
 			res.status(400).json(err);
 		});
 	}
-	
+
 	getByIdTabela(p_idTabela: number) {
 		return TabelaCampoDAO.findAll({
 			where: {
@@ -40,7 +36,7 @@ export class TabelaCampo {
 		var ntabelacampo: ITabelaCampo = <ITabelaCampo>req.body;
 		//console.log(ntabelacampo);
 		TabelaCampoDAO.create(ntabelacampo).then(function(p_ntabelacampo: ITabelaCampo) {
-			res.json(p_ntabelacampo.id);
+			res.json(p_ntabelacampo);
 		}).catch(function(err: any) {
 			res.status(400).json(err);
 		});
@@ -49,7 +45,7 @@ export class TabelaCampo {
 	atualizar(req: server.Request, res: server.Response): void {
 		var ntabelacampo: ITabelaCampo = <ITabelaCampo>req.body;
 		TabelaCampoDAO.upsert(ntabelacampo).then(function(p_ntabelacampo: ITabelaCampo) {
-			res.send(true);
+			res.json(p_ntabelacampo);
 		}).catch(function(err: any) {
 			res.status(400).json(err);
 		});
@@ -61,7 +57,7 @@ export class TabelaCampo {
 				id: req.params._id
 			}
 		}).then(function(p_ntabelacampo: ITabelaCampo) {
-			res.send(true);
+			res.json(p_ntabelacampo);
 		}).catch(function(err: any) {
 			res.status(400).json(err);
 		});
@@ -73,5 +69,4 @@ export class TabelaCampo {
 			}
 		});
 	}
-
 }

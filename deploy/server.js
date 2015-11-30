@@ -31,9 +31,8 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 //server.use(restify.fullResponse());
 server.use(restify.CORS({
-    origins: ['*'],   // defaults to ['*']
-    credentials: false,                 // defaults to false
-    headers: ['x-foo']                 // sets expose-headers
+    origins: ['*']
+   
 }));
 
 var baseDir = "./app/br/underdesk";	
