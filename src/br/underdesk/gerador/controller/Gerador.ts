@@ -4,6 +4,8 @@ import {Get, Post, Put, Delete, Controller} from "../../../../lib/router/router"
 import {ITabela} from "../../tabela/model/ITabela";
 import {ITabelaCampo} from "../../tabela/model/ITabelaCampo";
 import {TabelaCampo} from "../../tabela/controller/TabelaCampo";
+import {Tabela} from "../../tabela/controller/Tabela";
+
 
 @Controller()
 export class Gerador {
@@ -22,6 +24,28 @@ export class Gerador {
 
 		res.send(rst);
 		
+	}
+
+	@Post("/gerarbytp/")
+	gerarByTp(req: server.Request, res: server.Response): void {
+		var tmpTabelas: ITabela[] = <ITabela[]>req.body;
+		var tmpTabCtrl: Tabela = new Tabela();
+		var ctotal: number = 0;
+
+		console.log(req.query.tp);
+		tmpTabelas.forEach(function(tmpItemTab:ITabela){
+				ctotal++;				
+				var engine = new velocity.Engine({
+					template: './app/br/underdesk/gerador/resource/template/' + req.query.tp + '.vm'
+					, output: './bin/' + tmpItemTab.dsTabela + '.ts'
+				});
+				var rst: string = engine.render({
+					classe: tmpItemTab
+				});
+				if (ctotal == tmpTabelas.length) {
+					res.json(tmpTabelas);
+				};						
+		});
 	}
 
 	@Post()

@@ -1,15 +1,15 @@
 import {ModWindow} from "../../../../lib/underas/container";
 import {ToolBar, RequestManager, IDefaultRequest} from "../../../../lib/underas/net";
-import {InputText, Select, CheckBox, NumericStepper, ListView, ItemView, Button} from "../../../../lib/underas/controller";
+import {TextInput, Select, CheckBox, NumericStepper, ListView, ItemView, Button} from "../../../../lib/underas/controller";
 import {ITabelaCampo} from "../model/ITabelaCampo";
 
 
 @ItemView("assets/html/tabelacampo.html")
 export class TabelaCampo extends ModWindow{
-    itIdTabelaCampo:InputText;
-    itIdTabela:InputText;
-    itCampo:InputText;
-    itDsCampo:InputText;
+    itIdTabelaCampo:TextInput;
+    itIdTabela:TextInput;
+    itCampo:TextInput;
+    itDsCampo:TextInput;
     itTipo:Select;
     itLimite:NumericStepper;
     itSnNull:CheckBox;
@@ -23,27 +23,27 @@ export class TabelaCampo extends ModWindow{
         this.mainTb = new ToolBar({"domain":"tabelacampo"});
         this.append(this.mainTb);
 
-        this.itIdTabelaCampo = new InputText("");
+        this.itIdTabelaCampo = new TextInput("");
         this.itIdTabelaCampo.setColumn("$id");
         this.itIdTabelaCampo.setLabel("cod.");
         this.itIdTabelaCampo.setSize(6);
         this.itIdTabelaCampo.setEnable(false);
         this.append(this.itIdTabelaCampo);
 
-        this.itIdTabela = new InputText("");
+        this.itIdTabela = new TextInput("");
         this.itIdTabela.setColumn("!idTabela");
         this.itIdTabela.setLabel("cod tab.");
         this.itIdTabela.setSize(6);
         this.itIdTabela.setEnable(false);
         this.append(this.itIdTabela);
 
-        this.itCampo = new InputText("");
+        this.itCampo = new TextInput("");
         this.itCampo.setColumn("@campo");
         this.itCampo.setLabel("campo");
         this.itCampo.setSize(12);
         this.append(this.itCampo);
 
-        this.itDsCampo = new InputText("");
+        this.itDsCampo = new TextInput("");
         this.itDsCampo.setColumn("@dsCampo");
         this.itDsCampo.setLabel("descricao do campo");
         this.itDsCampo.setSize(12);

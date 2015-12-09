@@ -1,35 +1,52 @@
 import server = require('restify');
 import {Get,Post,Put,Delete,Controller} from "../../../../lib/router/router";
 import TabelaDAO = require("../model/tabela");
+import TabelaCampoDAO = require("../model/tabelacampo");
 import {ITabela} from "../model/ITabela";
 import {TabelaCampo} from "./TabelaCampo";
 import {ITabelaCampo} from "../model/ITabelaCampo";
 
 @Controller()
 export class Tabela{
-	  _id:number;
-
-		constructor(){
-			this._id = 1;
-		}
-
 		@Get()
 		get(req:server.Request,res:server.Response):void{
-			TabelaDAO.findAll().then(function(dta:ITabela[]) {
+			TabelaDAO.findAll({
+				include: [{
+					all: true
+					, nested: false
+					, model: TabelaCampoDAO
+					, required: true
+				}]
+			}).then(function(dta:ITabela[]) {
 				res.json(dta);
 			}).catch(function(err:any) {
 				res.status(400).json(err);
 			});
 		}
-		@Get("/teste")
-		getTest(req:server.Request,res:server.Response):void{
-			this._id++;
-			res.json({id:11,_id:this._id,sum:this.getMyIdSum(this._id*3)});
+
+		@Get("/:idtabela")
+		getByIdTabelaService(req: server.Request, res: server.Response): void {
+			this.getByIdTabela(req.params.idtabela).then(function(dta: ITabela[]) {
+				res.json(dta);
+			}).catch(function(err: any) {
+				res.status(400).json(err);
+			});
 		}
 
-		getMyIdSum(p_time:number):number{
-			return this._id*p_time;
+		getByIdTabela(idTabela:number){
+			return TabelaDAO.findAll({
+				include: [{
+					all: true
+					, nested: false
+					, model: TabelaCampoDAO
+					, required: true
+				}]
+				, where: {
+					idTabela: idTabela
+				}
+			});
 		}
+
 
 		@Post()
 		add(req:server.Request,res:server.Response):void{
