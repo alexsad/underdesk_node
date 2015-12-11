@@ -1,6 +1,6 @@
 import {ModWindow} from "../../../../lib/underas/container";
 import {ToolBar, RequestManager, IDefaultRequest} from "../../../../lib/underas/net";
-import {InputText, Select, CheckBox, NumericStepper, ListView, ItemView, Button} from "../../../../lib/underas/controller";
+import {TextInput, Select, CheckBox, NumericStepper, ListView, ItemView, Button} from "../../../../lib/underas/controller";
 import {ITabela} from "../model/ITabela";
 import {ITabelaCampo} from "../model/ITabelaCampo";
 import {TabelaCampo} from "./TabelaCampo";
@@ -9,13 +9,13 @@ import {TabelaCampo} from "./TabelaCampo";
 
 @ItemView("assets/html/tabela.html")
 export class Tabela extends ModWindow{
-    itidTabela:InputText;
-    itdsTabela:InputText;
-    itdominio:InputText;
-    itPacote:InputText;
+    itidTabela:TextInput;
+    itdsTabela:TextInput;
+    itdominio:TextInput;
+    itPacote:TextInput;
     itTipo:CheckBox;
     itTpGeracao:Select;
-    itChavePrimaria:InputText;
+    itChavePrimaria:TextInput;
     itSnModelJava:CheckBox;
     itSnDaoJava:CheckBox;
     itSnBLLJava:CheckBox;
@@ -42,32 +42,32 @@ export class Tabela extends ModWindow{
         this.mainTb = new ToolBar({"domain":"tabela"});
         this.append(this.mainTb);
 
-        this.itidTabela = new InputText("");
+        this.itidTabela = new TextInput("");
         this.itidTabela.setLabel("cod.");
         this.itidTabela.setColumn("$id");
         this.itidTabela.setSize(2);
         this.itidTabela.setEnable(false);
         this.append(this.itidTabela);
 
-        this.itdsTabela = new InputText("");
+        this.itdsTabela = new TextInput("");
         this.itdsTabela.setLabel("tabela");
         this.itdsTabela.setColumn("@dsTabela");
         this.itdsTabela.setSize(4);
         this.append(this.itdsTabela);
 
-        this.itdominio = new InputText("");
+        this.itdominio = new TextInput("");
         this.itdominio.setLabel("dominio");
         this.itdominio.setColumn("@dominio");
         this.itdominio.setSize(6);
         this.append(this.itdominio);
 
-        this.itPacote = new InputText("");
+        this.itPacote = new TextInput("");
         this.itPacote.setLabel("pacote");
         this.itPacote.setColumn("@pacote");
         this.itPacote.setSize(7);
         this.append(this.itPacote);
 
-        this.itChavePrimaria = new InputText("");
+        this.itChavePrimaria = new TextInput("");
         this.itChavePrimaria.setLabel("chave primaria");
         this.itChavePrimaria.setColumn("@chavePrimaria");
         this.itChavePrimaria.setSize(5);
@@ -142,7 +142,7 @@ export class Tabela extends ModWindow{
 
 
         this.itSnTypeScriptNodeInterface = new CheckBox("TScript Interface:", "Sim");
-        this.itSnTypeScriptNodeInterface.setEnable(false);
+        this.itSnTypeScriptNodeInterface.setEnable(true);
         this.itSnTypeScriptNodeInterface.setSize(4);
         this.itSnTypeScriptNodeInterface.setCheckedValue("TYPESCRIPT_NODE_INTERFACE@ts");
         this.itSnTypeScriptNodeInterface.setUnCheckedValue("");
@@ -366,7 +366,7 @@ export class Tabela extends ModWindow{
             },this.getMainList().getSelectedItem());
         */
 
-
+        /*
         RequestManager.addRequest({
                 "data":itensList
                 ,"method":"post"
@@ -376,6 +376,18 @@ export class Tabela extends ModWindow{
                     console.log("gerado com sucesso!");
                 }.bind(this)
         });
+        */
+        RequestManager.addRequest({
+            "data": itensList
+            , "method": "post"
+            , "url": "gerador/gerarbytp?tp=" + this.itSnTypeScriptNodeInterface.getValue().substring(0, this.itSnTypeScriptNodeInterface.getValue().indexOf("@"))
+            , "onLoad": function(dta: ITabela[]) {
+                //this.itrs.setValue(dta);
+                console.log("gerado com sucesso!");
+            }.bind(this)
+        });
+
+        
 
     }
 }

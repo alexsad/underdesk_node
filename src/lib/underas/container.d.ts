@@ -3,10 +3,13 @@ import { Controller, Button, IListView } from "./controller";
 import { IDefaultRequest } from "./net";
 export declare class AlertWindow extends Component {
     private _title;
-    constructor(p_title: string, p_msg: string);
+    private _urlModule;
+    constructor(p_title: string, p_msg?: string);
     addButton(p_ele: Button): void;
+    append(childtoappend: Component | Controller): void;
     setTitle(p_title: string): void;
     setMsg(p_msg: string): void;
+    setUrlModule(p_url_m: string): void;
 }
 export interface IModWindowColumn {
     column: string;
@@ -37,6 +40,7 @@ export declare class ModWindow extends Component {
     _onStart(): void;
     onStart(): void;
     getFormItem(): Object;
+    setFormItem(p_item: Object): void;
     clearFormItem(): void;
     setRevision(p_txt_revision: string): void;
     getRevision(): string;
@@ -65,7 +69,11 @@ export declare class ModView extends Component {
     private _icone;
     private _childrenMods;
     private _appended;
+    private _indexmodule;
     constructor(p_title: string);
+    nextModule(evt?: Event): void;
+    prevModule(evt?: Event): void;
+    showModule(p_indexModule: number): void;
     append(p_ele: ModWindow): void;
     destroy(): void;
     setIcon(p_icon: string): void;

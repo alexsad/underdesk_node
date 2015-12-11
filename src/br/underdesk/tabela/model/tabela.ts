@@ -1,5 +1,6 @@
 import {ITabela} from "./ITabela";
 import sequelize = require("../../../../config/sequelizedb");
+import TabelaCampoDAO = require("../model/tabelacampo");
 
 var TabelaDAO = sequelize.define('tabela', {
   "dsTabela":{
@@ -37,5 +38,7 @@ var TabelaDAO = sequelize.define('tabela', {
 	"timestamps":false
 	,"freezeTableName":true
 });
+
+TabelaDAO.hasMany(TabelaCampoDAO, { as: 'campo', foreignKey: 'id_tabela' });
 
 export = TabelaDAO;
