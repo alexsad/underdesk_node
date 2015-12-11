@@ -152,7 +152,7 @@ export class Tabela extends ModWindow{
         this.itSnTypeScriptNodeSchema = new CheckBox("TScript Schema:", "Sim");
         this.itSnTypeScriptNodeSchema.setEnable(false);
         this.itSnTypeScriptNodeSchema.setSize(4);
-        this.itSnTypeScriptNodeSchema.setCheckedValue("TYPESCRIPT_NODE_SCHEMA@ts");
+        this.itSnTypeScriptNodeSchema.setCheckedValue("TYPESCRIPT_NODE_SCHEMA_SEQUELIZE@ts");
         this.itSnTypeScriptNodeSchema.setUnCheckedValue("");
         this.append(this.itSnTypeScriptNodeSchema);
 
@@ -387,7 +387,7 @@ export class Tabela extends ModWindow{
             }.bind(this)
         });
 
-        
+
 
     }
 }

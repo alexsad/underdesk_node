@@ -19,6 +19,16 @@ global.__metadata=function (k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+String.prototype.toCapitalCase = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+};
+
+String.prototype.toCamelCase = function() {
+    return this.replace(/^([A-Z])|[\s-_](\w)/g, function(match, p1, p2, offset) {
+        if (p2) return p2.toUpperCase();
+        return p1.toLowerCase();
+    });
+};
 
 var server = restify.createServer({
   name: 'myapp',
@@ -32,11 +42,11 @@ server.use(restify.bodyParser());
 //server.use(restify.fullResponse());
 server.use(restify.CORS({
     origins: ['*']
-   
+
 }));
 
-var baseDir = "./app/br/underdesk";	
-	
+var baseDir = "./app/br/underdesk";
+
 fs.readdir(baseDir, function (err, files) { // '/' denotes the root folder
   if (err) throw err;
    files.forEach( function (file) {

@@ -10,8 +10,8 @@ var sequelize:any = new Sequelize('database', 'username', 'password', {
     min: 0,
     idle: 10000
   }
-  //,storage: 'C:/sistemas/db/sqlite/underdesk.sqlite'
-  ,storage: '/mnt/arquivos/workspace/db/sqlite/underdesk.sqlite'
+  ,storage: 'C:/sistemas/db/sqlite/underdesk.sqlite'
+  //,storage: '/mnt/arquivos/workspace/db/sqlite/underdesk.sqlite'
 });
 
 console.log("conexao aberta!");
