@@ -35,7 +35,7 @@ export class Gerador {
 		});
 	}
 
-	@Post("/gerarbytp/")
+	@Post("/gerarbytp")
 	gerarByTp(req: server.Request, res: server.Response): void {
 		var tmpTabelas: ITabela[] = <ITabela[]>req.body;
 		var tmpTabCtrl: Tabela = new Tabela();
@@ -46,10 +46,10 @@ export class Gerador {
 				ctotal++;
 				var output:string = './bin/I';
 
-
-
+				var tpEscolhido: string = tmpItemTab.exportsto[0].substring(0, tmpItemTab.exportsto[0].indexOf("@"));
+				//console.log(tpEscolhido);
 				var engine = new velocity.Engine({
-					template: './app/br/underdesk/gerador/resource/template/' + req.query.tp + '.vm'
+					template: './app/br/underdesk/gerador/resource/template/' + tpEscolhido + '.vm'
 					, output: './bin/I' + (<any>tmpItemTab.dsTabela).toCamelCase().toCapitalCase()+ '.ts'
 				});
 				var rst: string = engine.render({

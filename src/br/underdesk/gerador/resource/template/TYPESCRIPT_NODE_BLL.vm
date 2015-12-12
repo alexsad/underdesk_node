@@ -1,58 +1,61 @@
-import express = require('express');
+#set( $classname = ${classe.dsTabela.toCamelCase().toCapitalCase()} )
+import server = require('restify');
 import {Get,Post,Put,Delete,Controller} from "../../../../lib/router";
-import {${classe.getNome()}DAO} from "../model/${classe.getNome().toLowerCase()}";
-import {I${classe.getNome()}} from "../model/I${classe.getNome()}";
+import ${classname}AR = require("../model/${classname.toLowerCase()}");
+import {I${classname}} from "../model/I${classname}";
 
 
 @Controller()
-class ${classe.getNome()}{
+class ${classname}{
 	@Get()
-	get(req:express.Request,res:express.Response):void{
-		${classe.getNome()}DAO.find({}).exec().then(
-			function(dta:I${classe.getNome()}[]){
+	get(req:server.Request,res:server.Response):void{
+		${classname}AR.findAll().then(
+			function(dta:I${classname}[]){
 				res.json(dta);
 			}
-			,function(err){
-				res.status(400).json(err);
-			}
-		);
+		).catch(function(err: any) {
+			res.status(400)
+			res.json(err);
+		});
 	}
 	@Post()
-	add(req:express.Request,res:express.Response):void{
-		var n${classe.getNome().toLowerCase()}:I${classe.getNome()} = <I${classe.getNome()}>req.body;
-		${classe.getNome()}DAO.create(n${classe.getNome().toLowerCase()}).then(
-			function(p_n${classe.getNome().toLowerCase()}:I${classe.getNome()}){
-				res.json(p_n${classe.getNome().toLowerCase()}._id);
+	add(req:server.Request,res:server.Response):void{
+		var n${classname.toLowerCase()}:I${classname} = <I${classname}>req.body;
+		${classname}AR.create(n${classname}).then(
+			function(p_n${classname.toLowerCase()}:I${classname}){
+				res.json(p_n${classname.toLowerCase()});
 			}
 			,function(error:any){
 				if(error){
 					res.status(400).json(error);
 				}
 			}
-		);
+		).catch(function(err:any) {
+			res.status(400);
+			res.json(err);
+		});
 	}
 	@Put()
-	atualizar(req:express.Request,res:express.Response):void{
-		var p_${classe.getNome().toLowerCase()}:I${classe.getNome()} = <I${classe.getNome()}>req.body;
-		var tmpId:string = p_${classe.getNome().toLowerCase()}._id;
-		delete p_${classe.getNome().toLowerCase()}._id;		
-		${classe.getNome()}DAO.findByIdAndUpdate(tmpId,{$set:p_${classe.getNome().toLowerCase()}},function(err){
-			if(err){
-				res.status(400).json(err);
-			}else{
-				res.send(true);
-			}
+	atualizar(req:server.Request,res:server.Response):void{
+		var n${classname.toLowerCase()}: I${classname} = <I${classname}>req.body;
+		${classname}AR.upsert(n${classname.toLowerCase()}).then(function(p_n${classname.toLowerCase()}: I${classname}) {
+			res.send(p_n${classname.toLowerCase()});
+		}).catch(function(err:any) {
+			res.status(400);
+			res.json(err);
 		});
 	}
 	@Delete("/:_id")
-	delete(req:express.Request,res:express.Response):void{
-		${classe.getNome()}DAO.findByIdAndRemove(req.params._id).exec().then(
-			function(){
-				res.send(true);
+	delete(req:server.Request,res:server.Response):void{
+ 		${classname}AR.destroy({
+			where: {
+				id:req.params._id
 			}
-			,function(err:any) {
-				res.status(400).json(err);
-			}
- 		);
+		}).then(function(){
+			res.send(true);
+		}).catch(function(err:any) {
+			res.status(400);
+			res.json(err);
+		});
 	}
 }

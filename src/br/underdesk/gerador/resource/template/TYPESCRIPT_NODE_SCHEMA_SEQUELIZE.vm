@@ -1,16 +1,13 @@
 #set( $classname = ${classe.dsTabela.toCamelCase().toCapitalCase()} )
 import sequelize = require("../../../../config/sequelizedb");
-
 #set( $count = 0 )
-
 var ${classname}AR = sequelize.define('${classe.dsTabela}', {
-
 #foreach ($campo in $classe.campo)
 #if($count > 0)
-		#if($count > 1),#end"${campo.campo.toCamelCase()}":{
-			field:"${campo.campo}"
-			,type:sequelize.constructor.#if($campo.tipo=="int")INTEGER#else${campo.tipo.toUpperCase()}#end
-		}
+	#if($count > 1),#end"${campo.campo.toCamelCase()}":{
+		field:"${campo.campo}"
+		,type:sequelize.constructor.#if($campo.tipo=="int")INTEGER#else${campo.tipo.toUpperCase()}#end
+	}
 #end
 #set( $count = $count+1 )
 #end
