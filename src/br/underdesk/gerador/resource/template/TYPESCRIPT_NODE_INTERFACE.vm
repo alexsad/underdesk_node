@@ -1,10 +1,10 @@
 #set( $count = 0 )
-export interface I${classe.dsTabela}{
+export interface I${classe.dsTabela.toCamelCase().toCapitalCase()}{
 #foreach ($campo in $classe.campo)
 #if($campo.campo=="id")
 	_id?:number;
 #else
-	${campo.campo}:#if($campo.tipo=="int"||$campo.tipo=="float")number;#elseif($campo.tipo=="Date")Date;#else${campo.tipo.toLowerCase()};#end
+	${campo.campo.toCamelCase()}:#if($campo.tipo=="int"||$campo.tipo=="float"||$campo.tipo=="decimal")number;#elseif($campo.tipo=="Date")Date;#else string;#end
 #end
 #end
 }

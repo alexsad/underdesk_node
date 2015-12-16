@@ -7,6 +7,7 @@ import {TabelaCampo} from "../../tabela/controller/TabelaCampo";
 import {Tabela} from "../../tabela/controller/Tabela";
 
 
+
 @Controller()
 export class Gerador {
 	@Get("test")
@@ -14,7 +15,7 @@ export class Gerador {
 		//velocity.en
 		var Engine = velocity.Engine;
 		//var t = new Engine("");
-		
+
 		var engine = new Engine({
 			template: './app/br/underdesk/gerador/resource/template/teste1.vm'
 			, output: './teste_save1.txt'
@@ -23,28 +24,40 @@ export class Gerador {
 		var rst:string = engine.render({ nome: "paloma" });
 
 		res.send(rst);
-		
+
 	}
 
-	@Post("/gerarbytp/")
+	@Get("/ops")
+	getTest2(req: server.Request, res: server.Response):void{
+		res.json({
+			nome:req.query.nome.toCapitalCase()
+			,sobrenome:req.query.sobrenome.toCamelCase()
+		});
+	}
+
+	@Post("/gerarbytp")
 	gerarByTp(req: server.Request, res: server.Response): void {
 		var tmpTabelas: ITabela[] = <ITabela[]>req.body;
 		var tmpTabCtrl: Tabela = new Tabela();
 		var ctotal: number = 0;
 
-		console.log(req.query.tp);
+		//console.log(req.query.tp);
 		tmpTabelas.forEach(function(tmpItemTab:ITabela){
-				ctotal++;				
+				ctotal++;
+				var output:string = './bin/I';
+
+				var tpEscolhido: string = tmpItemTab.exportsto[0].substring(0, tmpItemTab.exportsto[0].indexOf("@"));
+				//console.log(tpEscolhido);
 				var engine = new velocity.Engine({
-					template: './app/br/underdesk/gerador/resource/template/' + req.query.tp + '.vm'
-					, output: './bin/' + tmpItemTab.dsTabela + '.ts'
+					template: './app/br/underdesk/gerador/resource/template/' + tpEscolhido + '.vm'
+					, output: './bin/I' + (<any>tmpItemTab.dsTabela).toCamelCase().toCapitalCase()+ '.ts'
 				});
 				var rst: string = engine.render({
 					classe: tmpItemTab
 				});
 				if (ctotal == tmpTabelas.length) {
 					res.json(tmpTabelas);
-				};						
+				};
 		});
 	}
 

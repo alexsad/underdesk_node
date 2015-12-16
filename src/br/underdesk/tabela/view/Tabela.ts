@@ -150,14 +150,14 @@ export class Tabela extends ModWindow{
 
 
         this.itSnTypeScriptNodeSchema = new CheckBox("TScript Schema:", "Sim");
-        this.itSnTypeScriptNodeSchema.setEnable(false);
+        this.itSnTypeScriptNodeSchema.setEnable(true);
         this.itSnTypeScriptNodeSchema.setSize(4);
-        this.itSnTypeScriptNodeSchema.setCheckedValue("TYPESCRIPT_NODE_SCHEMA@ts");
+        this.itSnTypeScriptNodeSchema.setCheckedValue("TYPESCRIPT_NODE_SCHEMA_SEQUELIZE@ts");
         this.itSnTypeScriptNodeSchema.setUnCheckedValue("");
         this.append(this.itSnTypeScriptNodeSchema);
 
         this.itSnTypeScriptNodeBLL = new CheckBox("TScript BLL:", "Sim");
-        this.itSnTypeScriptNodeBLL.setEnable(false);
+        this.itSnTypeScriptNodeBLL.setEnable(true);
         this.itSnTypeScriptNodeBLL.setSize(4);
         this.itSnTypeScriptNodeBLL.setCheckedValue("TYPESCRIPT_NODE_BLL@ts");
         this.itSnTypeScriptNodeBLL.setUnCheckedValue("");
@@ -377,17 +377,19 @@ export class Tabela extends ModWindow{
                 }.bind(this)
         });
         */
+
+
         RequestManager.addRequest({
             "data": itensList
             , "method": "post"
-            , "url": "gerador/gerarbytp?tp=" + this.itSnTypeScriptNodeInterface.getValue().substring(0, this.itSnTypeScriptNodeInterface.getValue().indexOf("@"))
+            , "url": "gerador/gerarbytp"
             , "onLoad": function(dta: ITabela[]) {
                 //this.itrs.setValue(dta);
                 console.log("gerado com sucesso!");
             }.bind(this)
         });
 
-        
+
 
     }
 }
