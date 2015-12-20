@@ -4,7 +4,7 @@ export interface I${classe.dsTabela.toCamelCase().toCapitalCase()}{
 #if($campo.campo=="id")
 	_id?:number;
 #else
-	${campo.campo.toCamelCase()}:#if($campo.tipo=="int"||$campo.tipo=="float"||$campo.tipo=="decimal")number;#elseif($campo.tipo=="Date")Date;#else string;#end
+	${campo.campo.toCamelCase()}:#if($campo.tipo=="int"||$campo.tipo=="float"||$campo.tipo=="decimal"||$campo.tipo=="real")number;#elseif($campo.tipo=="Date")Date;#else string;#end
 #end
 #end
 }

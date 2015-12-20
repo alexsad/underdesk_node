@@ -1,5 +1,6 @@
 import server = require('restify');
 import velocity = require('velocity');
+import fs = require('fs');
 import {Get, Post, Put, Delete, Controller} from "../../../../lib/router/router";
 import {ITabela} from "../../tabela/model/ITabela";
 import {ITabelaCampo} from "../../tabela/model/ITabelaCampo";
@@ -44,17 +45,51 @@ export class Gerador {
 		//console.log(req.query.tp);
 		tmpTabelas.forEach(function(tmpItemTab:ITabela){
 				ctotal++;
-				var output:string = './bin/I';
+				var output_orig: string = './bin/';
+				output_orig += tmpItemTab.dsTabela;
 
-				var tpEscolhido: string = tmpItemTab.exportsto[0].substring(0, tmpItemTab.exportsto[0].indexOf("@"));
-				//console.log(tpEscolhido);
-				var engine = new velocity.Engine({
-					template: './app/br/underdesk/gerador/resource/template/' + tpEscolhido + '.vm'
-					, output: './bin/I' + (<any>tmpItemTab.dsTabela).toCamelCase().toCapitalCase()+ '.ts'
+				var nomeArquivo_orig: string = (<any>tmpItemTab.dsTabela).toCamelCase().toCapitalCase();
+				if (!fs.existsSync(output_orig)) {
+					fs.mkdirSync(output_orig);
+					fs.mkdirSync(output_orig + "/model");
+					fs.mkdirSync(output_orig + "/controller");
+					fs.mkdirSync(output_orig + "/view");
+					fs.mkdirSync(output_orig + "/view/assets");
+					fs.mkdirSync(output_orig + "/view/assets/html");
+				};
+
+
+				tmpItemTab.exportsto.forEach(function(typeexp:string){
+					var tpEscolhido: string = typeexp.substring(0, typeexp.indexOf("@"));
+					var output: string = output_orig;
+					var nomeArquivo:string = nomeArquivo_orig;
+					if (tpEscolhido == "TYPESCRIPT_NODE_SCHEMA_SEQUELIZE") {
+						output += "/model/";
+						nomeArquivo += "AR.ts";
+					} else if (tpEscolhido == "TYPESCRIPT_NODE_INTERFACE") {
+						output += "/model/";
+						nomeArquivo = "I"+nomeArquivo+".ts"
+					} else if (tpEscolhido == "TYPESCRIPT_NODE_BLL") {
+						output += "/controller/";
+						nomeArquivo += ".ts";
+					} else if (tpEscolhido == "TYPESCRIPT_VIEW") {
+						output += "/view/";
+						nomeArquivo += ".ts";
+					} else if (tpEscolhido == "HTML_ITEMVIEW") {
+						output += "/view/assets/html/";
+						nomeArquivo = (<any>nomeArquivo).toCamelCase().toLowerCase();
+						nomeArquivo += ".html";
+					}
+					//console.log(tpEscolhido);
+					var engine = new velocity.Engine({
+						template: './app/br/underdesk/gerador/resource/template/' + tpEscolhido + '.vm'
+						, output: output + nomeArquivo
+					});
+					var rst: string = engine.render({
+						classe: tmpItemTab
+					});
 				});
-				var rst: string = engine.render({
-					classe: tmpItemTab
-				});
+
 				if (ctotal == tmpTabelas.length) {
 					res.json(tmpTabelas);
 				};
