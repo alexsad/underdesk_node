@@ -1,10 +1,10 @@
 #set( $count = 0 )
-<div class="col-xs-6 col-sm-4 col-md-4">
-#foreach ($campo in $classe.getAllCampos())
-#if($count==1&&$campo.isFk())
-<h4>{${campo.getColuna()}}</h4>
+<div class="col-xs-12 col-sm-4 col-md-4">
+#foreach ($campo in $classe.campo)
+#if($campo.campo=="id")
+<h4>{${campo.campo.toCamelCase()}}</h4>
 #else
-<p class="list-group-item-text">${campo.getDsCampo()}:{${campo.getColuna()}}</p> 
+<p class="list-group-item-text">${campo.dsCampo}:{${campo.campo.toCamelCase()}}</p> 
 #end
 #set( $count = $count+1 )
 #end

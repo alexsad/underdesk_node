@@ -14,7 +14,7 @@ class ${classname}{
 				res.json(dta);
 			}
 		).catch(function(err: any) {
-			res.status(400)
+			res.status(400);
 			res.json(err);
 		});
 	}
@@ -24,11 +24,6 @@ class ${classname}{
 		${classname}AR.create(n${classname}).then(
 			function(p_n${classname.toLowerCase()}:I${classname}){
 				res.json(p_n${classname.toLowerCase()});
-			}
-			,function(error:any){
-				if(error){
-					res.status(400).json(error);
-				}
 			}
 		).catch(function(err:any) {
 			res.status(400);

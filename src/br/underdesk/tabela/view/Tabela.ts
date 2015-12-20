@@ -134,7 +134,7 @@ export class Tabela extends ModWindow{
         this.append(this.itSnViewTypeScript);
 
         this.itSnItemViewHtml = new CheckBox("Item View HTML:", "Sim");
-        this.itSnItemViewHtml.setEnable(false);
+        this.itSnItemViewHtml.setEnable(true);
         this.itSnItemViewHtml.setSize(5);
         this.itSnItemViewHtml.setCheckedValue("HTML_ITEMVIEW@html");
         this.itSnItemViewHtml.setUnCheckedValue("");
