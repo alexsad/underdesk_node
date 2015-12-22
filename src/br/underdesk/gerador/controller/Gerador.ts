@@ -41,14 +41,22 @@ export class Gerador {
 		var tmpTabelas: ITabela[] = <ITabela[]>req.body;
 		var tmpTabCtrl: Tabela = new Tabela();
 		var ctotal: number = 0;
+		var outPutDir: string = './bin/';
+
+		if (!fs.existsSync(outPutDir)) {
+			fs.mkdirSync(outPutDir);
+		}
 
 		//console.log(req.query.tp);
 		tmpTabelas.forEach(function(tmpItemTab:ITabela){
 				ctotal++;
-				var output_orig: string = './bin/';
+				var output_orig: string = outPutDir;
 				output_orig += tmpItemTab.dsTabela;
 
 				var nomeArquivo_orig: string = (<any>tmpItemTab.dsTabela).toCamelCase().toCapitalCase();
+				
+
+
 				if (!fs.existsSync(output_orig)) {
 					fs.mkdirSync(output_orig);
 					fs.mkdirSync(output_orig + "/model");

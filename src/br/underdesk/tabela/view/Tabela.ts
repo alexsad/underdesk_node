@@ -16,9 +16,9 @@ export class Tabela extends ModWindow{
     itTipo:CheckBox;
     itTpGeracao:Select;
     itChavePrimaria:TextInput;
-    itSnModelJava:CheckBox;
-    itSnDaoJava:CheckBox;
-    itSnBLLJava:CheckBox;
+    //itSnModelJava:CheckBox;
+    //itSnDaoJava:CheckBox;
+    //itSnBLLJava:CheckBox;
     itSnViewTypeScript:CheckBox;
     itSnItemViewHtml:CheckBox;
     itSnTypeScriptNodeSchema:CheckBox;
@@ -96,7 +96,6 @@ export class Tabela extends ModWindow{
         this.itSnGerarApenasSelecionada.setUnCheckedValue("N");
         this.append(this.itSnGerarApenasSelecionada);
 
-
         this.itSnUML = new CheckBox("Gerar Diagrama de Classe?", "Sim");
         this.itSnUML.setEnable(true);
         this.itSnUML.setSize(12);
@@ -104,7 +103,7 @@ export class Tabela extends ModWindow{
         this.itSnUML.setUnCheckedValue("");
         this.append(this.itSnUML);
 
-
+/*
         this.itSnModelJava = new CheckBox("Model java:", "Sim");
         this.itSnModelJava.setEnable(false);
         this.itSnModelJava.setSize(4);
@@ -125,9 +124,9 @@ export class Tabela extends ModWindow{
         this.itSnBLLJava.setCheckedValue("BLL@java");
         this.itSnBLLJava.setUnCheckedValue("");
         this.append(this.itSnBLLJava);
-
+*/
         this.itSnViewTypeScript = new CheckBox("Visual com TScript:", "Sim");
-        this.itSnViewTypeScript.setEnable(false);
+        this.itSnViewTypeScript.setEnable(true);
         this.itSnViewTypeScript.setSize(7);
         this.itSnViewTypeScript.setCheckedValue("TYPESCRIPT_VIEW@ts");
         this.itSnViewTypeScript.setUnCheckedValue("");
@@ -140,14 +139,12 @@ export class Tabela extends ModWindow{
         this.itSnItemViewHtml.setUnCheckedValue("");
         this.append(this.itSnItemViewHtml);
 
-
         this.itSnTypeScriptNodeInterface = new CheckBox("TScript Interface:", "Sim");
         this.itSnTypeScriptNodeInterface.setEnable(true);
         this.itSnTypeScriptNodeInterface.setSize(4);
         this.itSnTypeScriptNodeInterface.setCheckedValue("TYPESCRIPT_NODE_INTERFACE@ts");
         this.itSnTypeScriptNodeInterface.setUnCheckedValue("");
         this.append(this.itSnTypeScriptNodeInterface);
-
 
         this.itSnTypeScriptNodeSchema = new CheckBox("TScript Schema:", "Sim");
         this.itSnTypeScriptNodeSchema.setEnable(true);
@@ -162,9 +159,6 @@ export class Tabela extends ModWindow{
         this.itSnTypeScriptNodeBLL.setCheckedValue("TYPESCRIPT_NODE_BLL@ts");
         this.itSnTypeScriptNodeBLL.setUnCheckedValue("");
         this.append(this.itSnTypeScriptNodeBLL);
-
-
-
         /*
         this.itrs = new TextArea("");
         this.itrs.setLabel("resultado:");
@@ -173,7 +167,6 @@ export class Tabela extends ModWindow{
          */
         this.mainList = new ListView("tabelas");
         this.append(this.mainList);
-
 
         this.btGerarCodigo = new Button("Gerar");
         this.btGerarCodigo.setIcon("check");
@@ -184,12 +177,7 @@ export class Tabela extends ModWindow{
         this.btImportarCodigo.setIcon("cloud-download");
         this.btImportarCodigo.addEvent('click',this.importar.bind(this));
         this.mainTb.addButton(this.btImportarCodigo);
-
-
-
-
         //this.addAssociation({"mod":"br.net.underdesk.codigogerador.view.TabelaCampo","act":"getCampos","puid":this.getVarModule()});
-
         //this._modArquivoView = p_arquivoview;
     }
     onStart():void{
@@ -297,10 +285,8 @@ export class Tabela extends ModWindow{
         if(evt){
             evt.preventDefault();
         };
-
-
         var selecteds:string[] = [];
-
+        /*
         if(this.itSnModelJava.getValue()!=""){
             var tms:number = selecteds.length;
             selecteds[tms] = this.itSnModelJava.getValue();
@@ -313,6 +299,7 @@ export class Tabela extends ModWindow{
             var tms:number = selecteds.length;
             selecteds[tms] = this.itSnBLLJava.getValue();
         };
+        */
         if(this.itSnViewTypeScript.getValue()!=""){
             var tms:number = selecteds.length;
             selecteds[tms] = this.itSnViewTypeScript.getValue();
