@@ -18,7 +18,7 @@ export class ${classname} extends ModWindow{
 #elseif($campo.tipo=="BigDecimal"||$campo.tipo=="float")
 #set( $campotuput = 'InputMoney' )
 #end
- it${campo.campo}:$campotuput;	 
+ it${campo.campo.toCamelCase().toCapitalCase()}:$campotuput;	 
 #end
  mainTb:ToolBar;
  mainList:ListView;
@@ -31,6 +31,7 @@ export class ${classname} extends ModWindow{
 	
 #foreach ($campo in $classe.campo)		
 #set( $campotuput = 'InputText("")' )
+#set( $fieldName = $campo.campo.toCamelCase().toCapitalCase() )
 #if($campo.tipo=="Date")
 #set( $campotuput = 'DatePicker()' )		#elseif($campo.tipo=="int"&&$campo.campo!= $classe.chavePrimaria)
 #set( $campotuput = 'NumericStepper(0)' )
@@ -42,19 +43,17 @@ export class ${classname} extends ModWindow{
 #set( $campotuput = 'InputMoney("0")' )
 #end
 
-  this.it$campo.toCamelCase().toCapitalCase() = new ${campotuput};
+  this.it${fieldName} = new ${campotuput};
 #if($campo.campo!=$classe.chavePrimaria)
-  this.it${campo.toCamelCase().toCapitalCase()}.setColumn("@${campo.campo}");
-  this.it${campo.toCamelCase().toCapitalCase()}.setLabel("${campo.dsTabela.toLowerCase()}");
-  this.it${campo.toCamelCase().toCapitalCase()}.setValueField("${campo.getFkService()}");
-  this.it${campo.toCamelCase().toCapitalCase()}.setLabelField("${campo.getFkService()}");
+  this.it${fieldName}.setColumn("@${campo.campo.toCamelCase()}");
+  this.it${fieldName}.setLabel("${campo.dsCampo}");
 #elseif($campo.campo==$classe.chavePrimaria)
-  this.it${campo.campo.toCamelCase().toCapitalCase()}.setColumn("$${campo.campo}");
-  this.it${campo.campo.toCamelCase()}.setLabel("cod.");
-  this.it${campo.campo.toCamelCase()).toCamelCase().toCapitalCase()}.setEnable(false);
+  this.it${fieldName}.setColumn("$${campo.campo.toCamelCase()}");
+  this.it${fieldName}.setLabel("${campo.dsCampo}");
+  this.it${fieldName}.setEnable(false);
 #end
-  this.it${campo.campo.toCamelCase()}.setSize(2);
-  this.append(this.it${campo.campo.toCamelCase()});		
+  this.it${fieldName}.setSize(2);
+  this.append(this.it${fieldName});		
 #end		
 		
   this.mainList = new ListView("${classname}");
@@ -63,8 +62,8 @@ export class ${classname} extends ModWindow{
  onStart():void{
 #foreach ($campo in $classe.campo)
 #if($campo.campo!="id")
-  this.it${campo.campo.toCamelCase()}.fromService({
-   "url":"${campo.dsCampo.toLowerCase()}/"
+  this.it${campo.campo.toCamelCase().toCapitalCase()}.fromService({
+   "url":"${campo.campo.toCamelCase().toLowerCase()}/"
   });
 #end
 #end
