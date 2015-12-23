@@ -1,81 +1,73 @@
+#set( $classname = ${classe.dsTabela.toCamelCase().toCapitalCase()} )
 import {ModWindow} from "../../../../lib/container";
 import {InputText,InputMoney,DatePicker,Select,CheckBox,NumericStepper,ListView,ItemView} from "../../../../lib/controller";
-import {I${classe.getNome()}} from "../model/I${classe.getNome()}";
+import {I${classname}} from "../model/I${classname}";
 import {ToolBar,RequestManager,IDefaultRequest} from "../../../../lib/net";
 
-@ItemView("assets/html/${classe.getNome().toLowerCase()}.html")
-export class ${classe.getNome()} extends ModWindow{
-#foreach ($campo in $classe.getAllCampos())
+@ItemView("assets/html/${classname.toLowerCase()}.html")
+export class ${classname} extends ModWindow{
+#foreach ($campo in $classe.campo)
 #set( $campotuput = 'InputText' )
-#if($campo.getTipo()=="Date")
-#set( $campotuput = 'DatePicker' )		#elseif($campo.getTipo()=="int"&&$campo.getColuna()!=$classe.getPrimaryKey().getColuna()&&!$campo.isFk())
+#if($campo.tipo=="Date")
+#set( $campotuput = 'DatePicker' )		#elseif($campo.tipo=="int"&&$campo.campo!=$classe.chavePrimaria )
 #set( $campotuput = 'NumericStepper' )
-#elseif($campo.getLimite()>250)
+#elseif($campo.limite > 250)
 #set( $campotuput = 'TextArea' )
-#elseif($campo.isFk()&&$campo.getColuna()!=$classe.getPrimaryKey().getColuna())
+#elseif($campo.campo!=$classe.chavePrimaria)
 #set( $campotuput = 'Select' )
-#elseif($campo.getTipo()=="BigDecimal"||$campo.getTipo()=="float")
+#elseif($campo.tipo=="BigDecimal"||$campo.tipo=="float")
 #set( $campotuput = 'InputMoney' )
 #end
-${tab}it${campo.getColunaCapitalize()}:$campotuput;	 
+ it${campo.campo.toCamelCase().toCapitalCase()}:$campotuput;	 
 #end
-${tab}mainTb:ToolBar;
-${tab}mainList:ListView;
-${tab}constructor(){
-${tab}${tab}super("${classe.getNome()}");
-${tab}${tab}this.setRevision("$Revision: 1 $");	
-${tab}${tab}this.setSize(12);	
-
-${tab}${tab}this.mainTb = new ToolBar({"domain":"${classe.getNome().toLowerCase()}"});
-${tab}${tab}this.append(this.mainTb);
+ mainTb:ToolBar;
+ mainList:ListView;
+ constructor(){
+  super("${classname}");
+  this.setRevision("$Revision: 1 $");	
+  this.setSize(12);	
+  this.mainTb = new ToolBar({"domain":"${classname.toLowerCase()}"});
+  this.append(this.mainTb);
 	
-#foreach ($campo in $classe.getAllCampos())		
+#foreach ($campo in $classe.campo)		
 #set( $campotuput = 'InputText("")' )
-#if($campo.getTipo()=="Date")
-#set( $campotuput = 'DatePicker()' )		#elseif($campo.getTipo()=="int"&&$campo.getColuna()!=$classe.getPrimaryKey().getColuna()&&!$campo.isFk())
+#set( $fieldName = $campo.campo.toCamelCase().toCapitalCase() )
+#if($campo.tipo=="Date")
+#set( $campotuput = 'DatePicker()' )		#elseif($campo.tipo=="int"&&$campo.campo!= $classe.chavePrimaria)
 #set( $campotuput = 'NumericStepper(0)' )
 #elseif($campo.getLimite()>250)
 #set( $campotuput = 'TextArea("")' )
-#elseif($campo.isFk()&&$campo.getColuna()!=$classe.getPrimaryKey().getColuna())
-#set( $campotuput = 'Select("'+${campo.getFkService()}+'")' )
-#elseif($campo.getTipo()=="BigDecimal"||$campo.getTipo()=="float")
+#elseif($campo.isFk()&&$campo.campo!=$classe.chavePrimaria)
+#set( $campotuput = 'Select("'+${campo.dsCampo}+'")' )
+#elseif($campo.tipo=="BigDecimal"||$campo.tipo=="float")
 #set( $campotuput = 'InputMoney("0")' )
 #end
 
-${tab}${tab}this.it$campo.getColunaCapitalize() = new ${campotuput};
-#if($campo.isFk()&&$campo.getColuna()!=$classe.getPrimaryKey().getColuna())
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setColumn("@${campo.getColuna()}");
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setLabel("${campo.getDsCampo().toLowerCase()}");
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setValueField("${campo.getFkService()}");
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setLabelField("${campo.getFkService()}");
-#elseif($campo.getColuna()==$classe.getPrimaryKey().getColuna())
-#if($classe.getTpTemplate()=="TYPESCRIPT_VIEW")
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setColumn("$_id");
-#else
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setColumn("$${campo.getColuna()}");
+  this.it${fieldName} = new ${campotuput};
+#if($campo.campo!=$classe.chavePrimaria)
+  this.it${fieldName}.setColumn("@${campo.campo.toCamelCase()}");
+  this.it${fieldName}.setLabel("${campo.dsCampo}");
+#elseif($campo.campo==$classe.chavePrimaria)
+  this.it${fieldName}.setColumn("$${campo.campo.toCamelCase()}");
+  this.it${fieldName}.setLabel("${campo.dsCampo}");
+  this.it${fieldName}.setEnable(false);
 #end
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setLabel("cod.");
-${tab}${tab}this.it${classe.getPrimaryKey().getColunaCapitalize()}.setEnable(false);	
-#else
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setColumn("@${campo.getColuna()}");
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setLabel("${campo.getDsCampo().toLowerCase()}");
-#end
-${tab}${tab}this.it${campo.getColunaCapitalize()}.setSize(2);
-${tab}${tab}this.append(this.it${campo.getColunaCapitalize()});		
+  this.it${fieldName}.setSize(2);
+  this.append(this.it${fieldName});		
 #end		
 		
-${tab}${tab}this.mainList = new ListView("$classe.getNome()");
-${tab}${tab}this.append(this.mainList);
-${tab}}
-${tab}onStart():void{
-#foreach ($campo in $classe.getAllCampos())
-#if($campo.getColuna()!=$classe.getPrimaryKey().getColuna()&&$campo.isFk())
-${tab}${tab}this.it${campo.getColunaCapitalize()}.fromService({
-${tab}${tab}${tab}"url":"${campo.getDsCampo().toLowerCase()}/"
-${tab}${tab}});
+  this.mainList = new ListView("${classname}");
+  this.append(this.mainList);
+ }
+ onStart():void{
+#foreach ($campo in $classe.campo)
+#if($campo.campo!="id")
+  this.it${campo.campo.toCamelCase().toCapitalCase()}.fromService({
+   "url":"${campo.campo.toCamelCase().toLowerCase()}/"
+  });
 #end
 #end
-${tab}${tab}//this.mainTb.reloadItens();
-${tab}}
+  //this.mainTb.reloadItens();
+ }
 }
 
