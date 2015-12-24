@@ -249,7 +249,7 @@ export class Tabela extends ModWindow{
                         , data: itTabela
                         ,onLoad: function(id_teste:number) {
 
-                            console.log("adicionado tabela com id"+id_teste);
+                            //console.log("adicionado tabela com id"+id_teste);
 
                             RequestManager.addRequest({
                                 rootUrl: ""
@@ -263,7 +263,7 @@ export class Tabela extends ModWindow{
                                             , method: "post"
                                             , data: itTabelaCampo
                                             , onLoad: function(id_teste2: number) {
-                                                console.log("adicionado tabela_campo com id" + id_teste2);
+                                                //console.log("adicionado tabela_campo com id" + id_teste2);
                                             }.bind(this)
                                         });
                                     });
@@ -372,7 +372,7 @@ export class Tabela extends ModWindow{
             , "url": "gerador/gerarbytp"
             , "onLoad": function(dta: ITabela[]) {
                 //this.itrs.setValue(dta);
-                console.log("gerado com sucesso!");
+                //console.log("gerado com sucesso!");
             }.bind(this)
         });
 

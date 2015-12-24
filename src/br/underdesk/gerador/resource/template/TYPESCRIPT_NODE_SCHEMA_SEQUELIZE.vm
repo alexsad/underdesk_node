@@ -6,7 +6,7 @@ var ${classname}AR = sequelize.define('${classe.dsTabela}', {
 #if($count > 0)
 	#if($count > 1),#end"${campo.campo.toCamelCase()}":{
 		field:"${campo.campo}"
-		,type:sequelize.constructor.#if($campo.tipo=="int")INTEGER#else${campo.tipo.toUpperCase()}#end
+		,type:sequelize.constructor.#if($campo.tipo=="int")INTEGER#elseif($campo.tipo=="varchar")STRING#else${campo.tipo.toUpperCase()}#end
 	}
 #end
 #set( $count = $count+1 )
