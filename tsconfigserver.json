@@ -39,9 +39,12 @@
         "src/br/underdesk/gerador/controller/Gerador.ts",
         "src/br/underdesk/tabela/controller/Tabela.ts",
         "src/br/underdesk/tabela/controller/TabelaCampo.ts",
+        "src/br/underdesk/unidadeconsumo/controller/UnidadeConsumo.ts",
         "src/br/underdesk/tabela/model/ITabela.ts",
         "src/br/underdesk/tabela/model/ITabelaCampo.ts",
         "src/br/underdesk/tabela/model/tabela.ts",
-        "src/br/underdesk/tabela/model/tabelacampo.ts"
+        "src/br/underdesk/tabela/model/tabelacampo.ts",
+        "src/br/underdesk/unidadeconsumo/model/IUnidadeConsumo.ts",
+        "src/br/underdesk/unidadeconsumo/model/UnidadeConsumoAR.ts"
     ]
 }

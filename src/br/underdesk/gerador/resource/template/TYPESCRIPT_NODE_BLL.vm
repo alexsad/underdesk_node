@@ -1,7 +1,7 @@
 #set( $classname = ${classe.dsTabela.toCamelCase().toCapitalCase()} )
 import server = require('restify');
-import {Get,Post,Put,Delete,Controller} from "../../../../lib/router";
-import ${classname}AR = require("../model/${classname.toLowerCase()}");
+import {Get,Post,Put,Delete,Controller} from "../../../../lib/router/router";
+import ${classname}AR = require("../model/${classname}AR");
 import {I${classname}} from "../model/I${classname}";
 
 
@@ -21,7 +21,7 @@ class ${classname}{
 	@Post()
 	add(req:server.Request,res:server.Response):void{
 		var n${classname.toLowerCase()}:I${classname} = <I${classname}>req.body;
-		${classname}AR.create(n${classname}).then(
+		${classname}AR.create(n${classname.toLowerCase()}).then(
 			function(p_n${classname.toLowerCase()}:I${classname}){
 				res.json(p_n${classname.toLowerCase()});
 			}

@@ -1,18 +1,6 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
-		replace: {
-			viewjs:{
-				expand: true,
-				src: ['public/js/br/**/*.js'],
-				overwrite: true,
-				replacements: [{
-					  from: /..\/..\/..\/..\/lib\/underas\//g,
-					  to: ''
-					}
-				]
-		  }
-		}
-		,copy: {
+		copy: {
 			view:{
 				expand: true,
 				cwd: './app/br',
@@ -64,11 +52,6 @@ module.exports = function(grunt) {
 			}
 			,client: {
 				src: 'public/js/br'
-			}
-		}
-		,concat: {
-			options: {
-				separator: ';'
 			}
 		}
 		,uglify: {
@@ -132,10 +115,8 @@ module.exports = function(grunt) {
 
 
 	grunt.loadNpmTasks("grunt-ts");
-	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-bower-task');
 
@@ -144,7 +125,7 @@ module.exports = function(grunt) {
 	//grunt.registerTask('dist', ['clean', 'copy']);
 	grunt.registerTask('build-server-dev', ['clean:server','ts:server','copy:serverResources']);
 	grunt.registerTask('build-server-deploy', ['build-server-dev','uglify:server']);
-	grunt.registerTask('build-view-dev', ['clean:client','ts:view','copy:viewAssets','replace:viewjs','build-view-pos']);
+	grunt.registerTask('build-view-dev', ['clean:client','ts:view','copy:viewAssets','build-view-pos']);
 	grunt.registerTask('build-view-deploy', ['build-view-dev','uglify:view']);
 	grunt.registerTask('build-dev', ['build-server-dev','build-view-dev']);
 	grunt.registerTask('build-deploy', ['build-server-deploy','build-view-deploy']);

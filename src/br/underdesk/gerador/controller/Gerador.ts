@@ -50,12 +50,10 @@ export class Gerador {
 		//console.log(req.query.tp);
 		tmpTabelas.forEach(function(tmpItemTab:ITabela){
 				ctotal++;
-				var output_orig: string = outPutDir;
-				output_orig += tmpItemTab.dsTabela;
-
 				var nomeArquivo_orig: string = (<any>tmpItemTab.dsTabela).toCamelCase().toCapitalCase();
 				
-
+				var output_orig: string = outPutDir;
+				output_orig += nomeArquivo_orig.toLowerCase();
 
 				if (!fs.existsSync(output_orig)) {
 					fs.mkdirSync(output_orig);
@@ -65,7 +63,6 @@ export class Gerador {
 					fs.mkdirSync(output_orig + "/view/assets");
 					fs.mkdirSync(output_orig + "/view/assets/html");
 				};
-
 
 				tmpItemTab.exportsto.forEach(function(typeexp:string){
 					var tpEscolhido: string = typeexp.substring(0, typeexp.indexOf("@"));
@@ -96,6 +93,20 @@ export class Gerador {
 					var rst: string = engine.render({
 						classe: tmpItemTab
 					});
+					var filePath: string = output + nomeArquivo;
+					//console.log(filePath);
+					fs.readFile(filePath, 'utf8', function(err, data) {
+						if (err) {
+							return console.log(err);
+						}
+						var result = data.replace(/^\s*\n/gm, '');
+						//console.log(filePath);
+						//console.log(result);
+						fs.writeFile(filePath, result, 'utf8', function(err) {
+							if (err) return console.log(err);
+						});
+					});
+
 				});
 
 				if (ctotal == tmpTabelas.length) {

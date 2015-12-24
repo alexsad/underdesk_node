@@ -1,23 +1,14 @@
 #set( $classname = ${classe.dsTabela.toCamelCase().toCapitalCase()} )
-import {ModWindow} from "../../../../lib/container";
-import {InputText,InputMoney,DatePicker,Select,CheckBox,NumericStepper,ListView,ItemView} from "../../../../lib/controller";
+import {ModWindow} from "../../../../lib/underas/container";
+import {TextInput,ListView,ItemView} from "../../../../lib/underas/controller";
+import {ToolBar} from "../../../../lib/underas/net";
 import {I${classname}} from "../model/I${classname}";
-import {ToolBar,RequestManager,IDefaultRequest} from "../../../../lib/net";
+
 
 @ItemView("assets/html/${classname.toLowerCase()}.html")
 export class ${classname} extends ModWindow{
 #foreach ($campo in $classe.campo)
-#set( $campotuput = 'InputText' )
-#if($campo.tipo=="Date")
-#set( $campotuput = 'DatePicker' )		#elseif($campo.tipo=="int"&&$campo.campo!=$classe.chavePrimaria )
-#set( $campotuput = 'NumericStepper' )
-#elseif($campo.limite > 250)
-#set( $campotuput = 'TextArea' )
-#elseif($campo.campo!=$classe.chavePrimaria)
-#set( $campotuput = 'Select' )
-#elseif($campo.tipo=="BigDecimal"||$campo.tipo=="float")
-#set( $campotuput = 'InputMoney' )
-#end
+#set( $campotuput = 'TextInput' )
  it${campo.campo.toCamelCase().toCapitalCase()}:$campotuput;	 
 #end
  mainTb:ToolBar;
@@ -30,28 +21,16 @@ export class ${classname} extends ModWindow{
   this.append(this.mainTb);
 	
 #foreach ($campo in $classe.campo)		
-#set( $campotuput = 'InputText("")' )
+#set( $campotuput = 'TextInput("")' )
 #set( $fieldName = $campo.campo.toCamelCase().toCapitalCase() )
-#if($campo.tipo=="Date")
-#set( $campotuput = 'DatePicker()' )		#elseif($campo.tipo=="int"&&$campo.campo!= $classe.chavePrimaria)
-#set( $campotuput = 'NumericStepper(0)' )
-#elseif($campo.getLimite()>250)
-#set( $campotuput = 'TextArea("")' )
-#elseif($campo.isFk()&&$campo.campo!=$classe.chavePrimaria)
-#set( $campotuput = 'Select("'+${campo.dsCampo}+'")' )
-#elseif($campo.tipo=="BigDecimal"||$campo.tipo=="float")
-#set( $campotuput = 'InputMoney("0")' )
-#end
-
   this.it${fieldName} = new ${campotuput};
 #if($campo.campo!=$classe.chavePrimaria)
   this.it${fieldName}.setColumn("@${campo.campo.toCamelCase()}");
-  this.it${fieldName}.setLabel("${campo.dsCampo}");
 #elseif($campo.campo==$classe.chavePrimaria)
-  this.it${fieldName}.setColumn("$${campo.campo.toCamelCase()}");
-  this.it${fieldName}.setLabel("${campo.dsCampo}");
+  this.it${fieldName}.setColumn("$${campo.campo.toCamelCase()}");  
   this.it${fieldName}.setEnable(false);
 #end
+  this.it${fieldName}.setLabel("${campo.dsCampo}");
   this.it${fieldName}.setSize(2);
   this.append(this.it${fieldName});		
 #end		
@@ -60,13 +39,6 @@ export class ${classname} extends ModWindow{
   this.append(this.mainList);
  }
  onStart():void{
-#foreach ($campo in $classe.campo)
-#if($campo.campo!="id")
-  this.it${campo.campo.toCamelCase().toCapitalCase()}.fromService({
-   "url":"${campo.campo.toCamelCase().toLowerCase()}/"
-  });
-#end
-#end
   //this.mainTb.reloadItens();
  }
 }

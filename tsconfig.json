@@ -52,6 +52,6 @@
         "./src/br/underdesk/tabela/model/tabela.ts",
         "./src/br/underdesk/tabela/model/tabelacampo.ts",
         "./src/br/underdesk/tabela/view/Tabela.ts",
-        "./src/br/underdesk/tabela/view/TabelaCampo.ts"
+        "./src/br/underdesk/tabela/view/TabelaCampo.ts"        
     ]
 }
