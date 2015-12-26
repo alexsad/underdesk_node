@@ -139,7 +139,8 @@ export class Gerador {
 					res.send(tmpTabela);
 				}
 			}).catch(function(err: any) {
-				res.status(400).json(err);
+				res.status(400);
+				res.json(err);
 			});
 		});
 	}

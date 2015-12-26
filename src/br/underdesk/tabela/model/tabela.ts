@@ -3,7 +3,11 @@ import sequelize = require("../../../../config/sequelizedb");
 import TabelaCampoDAO = require("../model/tabelacampo");
 
 var TabelaDAO = sequelize.define('tabela', {
-  "dsTabela":{
+	"idProjeto": {
+		type: sequelize.constructor.INTEGER
+		,field: 'id_projeto'
+	}
+  	,"dsTabela":{
 		type:sequelize.constructor.STRING
 		,field:'ds_tabela'
 		,set:function(val:string){

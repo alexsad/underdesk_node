@@ -32,6 +32,7 @@ module.exports = function(grunt) {
 					'!underas/'
 					,"**/*min.js"
 					,"**/require.js"
+					,"**/*min.css"
 				],
 				dest: 'public/js/lib'
 			}

@@ -10,7 +10,8 @@ export class TabelaCampo {
 		TabelaCampoDAO.findAll().then(function(dta: ITabelaCampo[]) {
 			res.json(dta);
 		}).catch(function(err: any) {
-			res.status(400).json(err);
+			res.status(400);
+			res.json(err);
 		});
 	}
 
@@ -19,7 +20,8 @@ export class TabelaCampo {
 		this.getByIdTabela(req.params._id).then(function(dta: ITabelaCampo[]) {
 			res.json(dta);
 		}).catch(function(err: any) {
-			res.status(400).json(err);
+			res.status(400);
+			res.json(err);
 		});
 	}
 
@@ -38,7 +40,8 @@ export class TabelaCampo {
 		TabelaCampoDAO.create(ntabelacampo).then(function(p_ntabelacampo: ITabelaCampo) {
 			res.json(p_ntabelacampo);
 		}).catch(function(err: any) {
-			res.status(400).json(err);
+			res.status(400);
+			res.json(err);
 		});
 	}
 	@Put()
@@ -47,7 +50,8 @@ export class TabelaCampo {
 		TabelaCampoDAO.upsert(ntabelacampo).then(function(p_ntabelacampo: ITabelaCampo) {
 			res.json(p_ntabelacampo);
 		}).catch(function(err: any) {
-			res.status(400).json(err);
+			res.status(400);
+			res.json(err);
 		});
 	}
 	@Delete("/:_id")
@@ -59,7 +63,8 @@ export class TabelaCampo {
 		}).then(function(p_ntabelacampo: ITabelaCampo) {
 			res.json(p_ntabelacampo);
 		}).catch(function(err: any) {
-			res.status(400).json(err);
+			res.status(400);
+			res.json(err);
 		});
 	}
 	deleteByIdTabela(p_idTabela:number) {
