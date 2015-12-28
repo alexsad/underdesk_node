@@ -11,7 +11,7 @@ var sequelize:any = new Sequelize('database', 'username', 'password', {
     idle: 10000
   }
   //,storage: 'C:/sistemas/db/sqlite/underdesk.sqlite'
-  , storage: '/mnt/arquivos/deploy/db/sqlite/underdesk.sqlite'
+  , storage: '/mnt/arquivos/deploy/db/sqlite/underdesk2.sqlite'
 });
 
 console.log("conexao aberta!");

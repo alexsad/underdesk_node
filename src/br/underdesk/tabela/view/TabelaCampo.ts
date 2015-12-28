@@ -1,6 +1,6 @@
-import {ModWindow} from "../../../../lib/underas/container";
-import {ToolBar, RequestManager, IDefaultRequest} from "../../../../lib/underas/net";
-import {TextInput, Select, CheckBox, NumericStepper, ListView, ItemView, Button} from "../../../../lib/underas/controller";
+import {ModWindow} from "lib/underas/container";
+import {ToolBar, RequestManager, IDefaultRequest} from "lib/underas/net";
+import {TextInput, Select, CheckBox, NumericStepper, ListView, ItemView, Button} from "lib/underas/controller";
 import {ITabelaCampo} from "../model/ITabelaCampo";
 
 
@@ -18,7 +18,7 @@ export class TabelaCampo extends ModWindow{
     constructor(){
         super("campos da tabela");
         this.setRevision("$Revision$");
-        this.setSize(5);
+        this.setSize(3);
 
         this.mainTb = new ToolBar({"domain":"tabelacampo"});
         this.append(this.mainTb);

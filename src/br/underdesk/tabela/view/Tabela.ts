@@ -1,6 +1,6 @@
-import {ModWindow} from "../../../../lib/underas/container";
-import {ToolBar, RequestManager, IDefaultRequest} from "../../../../lib/underas/net";
-import {TextInput, Select, CheckBox, NumericStepper, ListView, ItemView, Button} from "../../../../lib/underas/controller";
+import {ModWindow} from "lib/underas/container";
+import {ToolBar, RequestManager, IDefaultRequest} from "lib/underas/net";
+import {TextInput, Select, CheckBox, NumericStepper, ListView, ItemView, Button} from "lib/underas/controller";
 import {ITabela} from "../model/ITabela";
 import {ITabelaCampo} from "../model/ITabelaCampo";
 import {TabelaCampo} from "./TabelaCampo";
@@ -10,6 +10,7 @@ import {TabelaCampo} from "./TabelaCampo";
 @ItemView("assets/html/tabela.html")
 export class Tabela extends ModWindow{
     itidTabela:TextInput;
+    itidProjeto: TextInput;
     itdsTabela:TextInput;
     itdominio:TextInput;
     itPacote:TextInput;
@@ -37,7 +38,7 @@ export class Tabela extends ModWindow{
     constructor(){
         super("*Geracao de Codigo");
         this.setRevision("$Revision$");
-        this.setSize(7);
+        this.setSize(6);
 
         this.mainTb = new ToolBar({"domain":"tabela"});
         this.append(this.mainTb);
@@ -49,16 +50,23 @@ export class Tabela extends ModWindow{
         this.itidTabela.setEnable(false);
         this.append(this.itidTabela);
 
+        this.itidProjeto = new TextInput();
+        this.itidProjeto.setLabel("cod. projeto");
+        this.itidProjeto.setColumn("!idProjeto");
+        this.itidProjeto.setSize(2);
+        this.itidProjeto.setEnable(false);
+        this.append(this.itidProjeto);
+
         this.itdsTabela = new TextInput("");
         this.itdsTabela.setLabel("tabela");
         this.itdsTabela.setColumn("@dsTabela");
-        this.itdsTabela.setSize(4);
+        this.itdsTabela.setSize(5);
         this.append(this.itdsTabela);
 
         this.itdominio = new TextInput("");
         this.itdominio.setLabel("dominio");
         this.itdominio.setColumn("@dominio");
-        this.itdominio.setSize(6);
+        this.itdominio.setSize(3);
         this.append(this.itdominio);
 
         this.itPacote = new TextInput("");
@@ -187,12 +195,22 @@ export class Tabela extends ModWindow{
           ]);
         this._modTabelaCampo = new TabelaCampo();
         this.getModView().append(this._modTabelaCampo);
-        this.mainTb.reloadItens();
+        //this.mainTb.reloadItens();
+
 
     }
     onChangeItem(p_obj:ITabela):ITabela{
         this._modTabelaCampo.getByIdTabela(p_obj.id);
         return p_obj;
+    }
+    getByIdProjeto(p_idProjeto:number):void{
+        this.itidProjeto.setValue(p_idProjeto + "");
+        RequestManager.addRequest({
+            url:"tabela/getbyidprojeto/"+p_idProjeto
+            ,onLoad:function(dta:ITabela[]){
+                this.mainList.setDataProvider(dta);
+            }.bind(this)
+        });
     }
     gerarCodigoSingle():void{
 

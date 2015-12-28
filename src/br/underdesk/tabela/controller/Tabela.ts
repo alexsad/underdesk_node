@@ -20,7 +20,20 @@ export class Tabela{
 			}).then(function(dta:ITabela[]) {
 				res.json(dta);
 			}).catch(function(err:any) {
-				res.status(400).json(err);
+				res.status(400);
+				res.json(err);
+			});
+		}
+
+		@Get("/getbyidprojeto/:idprojeto")
+		getByIdProjeto(req: server.Request, res: server.Response): void {
+			TabelaDAO.findAll({
+				where: [{"id_projeto":req.params.idprojeto}]
+			}).then(function(dta: ITabela[]) {
+				res.json(dta);
+			}).catch(function(err: any) {
+				res.status(400);
+				res.json(err);
 			});
 		}
 
@@ -29,7 +42,8 @@ export class Tabela{
 			this.getByIdTabela(req.params.idtabela).then(function(dta: ITabela[]) {
 				res.json(dta);
 			}).catch(function(err: any) {
-				res.status(400).json(err);
+				res.status(400);
+				res.json(err);
 			});
 		}
 
@@ -58,7 +72,8 @@ export class Tabela{
 			TabelaDAO.create(ntabela).then(function(p_ntabela: ITabela) {
 				res.json(p_ntabela);
 			}).catch(function(err:any) {
-				res.status(400).json(err);
+				res.status(400);
+				res.json(err);
 			});
 		}
 		@Put()
@@ -67,7 +82,8 @@ export class Tabela{
 			TabelaDAO.upsert(ntabela).then(function(p_ntabela: ITabela) {
 				res.send(p_ntabela);
 			}).catch(function(err:any) {
-				res.status(400).json(err);
+				res.status(400);
+				res.json(err);
 			});
 		}
 		@Delete("/:_id")
@@ -81,11 +97,13 @@ export class Tabela{
 				tmpTabelaCampoDBL.deleteByIdTabela(req.params._id).then(function(p_ntabelacampo: ITabelaCampo) {
 					res.send(p_ntabelacampo);
 				}).catch(function(err: any) {
-					res.status(400).json(err);
+					res.status(400);
+					res.json(err);
 				});
 				//res.send(true);
 			}).catch(function(err:any) {
-				res.status(400).json(err);
+				res.status(400);
+				res.json(err);
 			});
 		}
 
