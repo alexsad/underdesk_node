@@ -33,8 +33,8 @@ class ${classname}{
 	@Put()
 	atualizar(req:server.Request,res:server.Response):void{
 		var n${classname.toLowerCase()}: I${classname} = <I${classname}>req.body;
-		${classname}AR.upsert(n${classname.toLowerCase()}).then(function(p_n${classname.toLowerCase()}: I${classname}) {
-			res.send(p_n${classname.toLowerCase()});
+		${classname}AR.upsert(n${classname.toLowerCase()}).then(function() {
+			res.send(n${classname.toLowerCase()});
 		}).catch(function(err:any) {
 			res.status(400);
 			res.json(err);

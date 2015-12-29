@@ -5,6 +5,9 @@ import {Login} from "../../usuario/view/Login";
 //import {Usuario} from "../../usuario/view/Usuario";
 //import {Perfil} from "../../perfil/view/Perfil";
 
+//RequestManager.setRootUrl(Underas.getDomain()+":"+8330+"/");
+//console.log(Underas.getDomain());
+//RequestManager.setRootUrl(Underas.getDomain()+":"+8399+"/");
 RequestManager.setRootUrl(Underas.getDomain()+":"+8330+"/");
 var modlogin: Login = new Login();
 var mdw:ModView = new ModView("cadastro de teste!!!");

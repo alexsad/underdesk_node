@@ -29,7 +29,7 @@ export class Projeto {
 	atualizar(req: server.Request, res: server.Response): void {
 		var nprojeto: IProjeto = <IProjeto>req.body;
 		ProjetoAR.upsert(nprojeto).then(function(p_nprojeto: IProjeto) {
-			res.json(p_nprojeto);
+			res.json(nprojeto);
 		}).catch(function(err: any) {
 			res.status(400);
 			res.json(err);
