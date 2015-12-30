@@ -60,7 +60,7 @@ fs.readdir(baseDir, function (err, files) { // '/' denotes the root folder
    });
 });
 
-server.listen(8399, function () {
+server.listen(8330, function () {
   console.log('%s listening at %s', server.name, server.url);
 });
 

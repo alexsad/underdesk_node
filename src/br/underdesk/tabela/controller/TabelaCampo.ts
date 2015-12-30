@@ -47,8 +47,8 @@ export class TabelaCampo {
 	@Put()
 	atualizar(req: server.Request, res: server.Response): void {
 		var ntabelacampo: ITabelaCampo = <ITabelaCampo>req.body;
-		TabelaCampoDAO.upsert(ntabelacampo).then(function(p_ntabelacampo: ITabelaCampo) {
-			res.json(p_ntabelacampo);
+		TabelaCampoDAO.upsert(ntabelacampo).then(function() {
+			res.json(ntabelacampo);
 		}).catch(function(err: any) {
 			res.status(400);
 			res.json(err);

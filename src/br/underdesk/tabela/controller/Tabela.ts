@@ -79,8 +79,8 @@ export class Tabela{
 		@Put()
 		atualizar(req:server.Request,res:server.Response):void{
 			var ntabela: ITabela = <ITabela>req.body;
-			TabelaDAO.upsert(ntabela).then(function(p_ntabela: ITabela) {
-				res.send(p_ntabela);
+			TabelaDAO.upsert(ntabela).then(function() {
+				res.send(ntabela);
 			}).catch(function(err:any) {
 				res.status(400);
 				res.json(err);
