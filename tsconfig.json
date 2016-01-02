@@ -19,7 +19,7 @@
     "filesGlob": [
         "./src/lib/sequelize/sequelize.d.ts",
         "./src/config/sequelizedb.ts",
-        "./src/lib/underas/*.d.ts",
+        "./src/lib/underas/*.d.ts",    
         "./src/lib/restify/*.d.ts",
         "./src/lib/jquery/jquery2.d.ts",
         "./src/lib/jqueryui/jqueryui.d.ts",

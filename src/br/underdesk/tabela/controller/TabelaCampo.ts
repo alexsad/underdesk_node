@@ -60,8 +60,8 @@ export class TabelaCampo {
 			where: {
 				id: req.params._id
 			}
-		}).then(function(p_ntabelacampo: ITabelaCampo) {
-			res.json(p_ntabelacampo);
+		}).then(function() {
+			res.json(true);
 		}).catch(function(err: any) {
 			res.status(400);
 			res.json(err);

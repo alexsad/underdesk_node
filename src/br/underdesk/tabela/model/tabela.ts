@@ -43,6 +43,6 @@ var TabelaDAO = sequelize.define('tabela', {
 	,"freezeTableName":true
 });
 
-TabelaDAO.hasMany(TabelaCampoDAO, { as: 'campo', foreignKey: 'id_tabela' });
+TabelaDAO.hasMany(TabelaCampoDAO, { as: 'campo', foreignKey: 'id_tabela' ,onDelete: 'cascade', hooks:true });
 
 export = TabelaDAO;
