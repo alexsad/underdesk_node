@@ -86,25 +86,66 @@ export class Tabela{
 				res.json(err);
 			});
 		}
-		@Delete("/:_id")
-		delete(req:server.Request,res:server.Response):void{
-			TabelaDAO.destroy({
-				where: {
+		//@Delete("/:_id")
+		deleteService(req:server.Request,res:server.Response):void{
+            this.deleteById(req.params._id
+            ,function(rtn:boolean){
+                res.send(true);
+            }
+            ,function(err:any){
+                res.status(400);
+				res.json(err);
+            }
+            );
+		}
+        
+        
+        @Delete("/:_id")
+		deleteService2(req:server.Request,res:server.Response):void{            
+            TabelaDAO.destroy({
+                where: {
 					id:req.params._id
 				}
-			}).then(function(p_ntabela: ITabela) {
-				var tmpTabelaCampoDBL: TabelaCampo = new TabelaCampo();
-				tmpTabelaCampoDBL.deleteByIdTabela(req.params._id).then(function(p_ntabelacampo: ITabelaCampo) {
-					res.send(p_ntabelacampo);
-				}).catch(function(err: any) {
-					res.status(400);
-					res.json(err);
-				});
-				//res.send(true);
-			}).catch(function(err:any) {
+            }).then(function(){
+                res.send(true);
+            }).catch(function(err:any) {
 				res.status(400);
 				res.json(err);
 			});
 		}
-
+        
+        deleteById(idtabela:number,handlerSuccess:(rt:boolean)=>void,handlerError:(perro:any)=>void){
+            return TabelaDAO.destroy({
+				where: {
+					id:idtabela
+				}
+			}).then(function() {
+				var tmpTabelaCampoDBL: TabelaCampo = new TabelaCampo();
+				tmpTabelaCampoDBL.deleteByIdTabela(idtabela).then(function() {					
+                    handlerSuccess(true);
+				}).catch(function(err: any) {
+                    handlerError(err);
+				});
+			}).catch(function(err:any) {
+				handlerError(err);
+			});
+        }
+        
+         deleteByIdProjeto(idprojeto:number,handlerSuccess:(rt:boolean)=>void,handlerError:(perro:any)=>void){
+            return TabelaDAO.destroy({
+				where: {
+					'id_projeto':idprojeto
+				}
+			}).then(function(p_ntabela: ITabela) {
+				var tmpTabelaCampoDBL: TabelaCampo = new TabelaCampo();
+                
+				tmpTabelaCampoDBL.deleteByIdTabela(1).then(function() {					
+                    handlerSuccess(true);
+				}).catch(function(err: any) {
+                    handlerError(err);
+				});
+			}).catch(function(err:any) {
+				handlerError(err);
+			});
+        }
 }
