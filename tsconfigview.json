@@ -38,6 +38,7 @@
         "src/br/underdesk/perfil/view/PerfilNotificacao.ts",
         "src/br/underdesk/perfil/view/PerfilViewNotificacao.ts",
         "src/br/underdesk/projeto/view/Projeto.ts",
+        "src/br/underdesk/projeto/view/UploadProject.ts",
         "src/br/underdesk/tabela/view/Tabela.ts",
         "src/br/underdesk/tabela/view/TabelaCampo.ts",
         "src/br/underdesk/usuario/view/Login.ts",
