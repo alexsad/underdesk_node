@@ -10,14 +10,7 @@ import {ITabelaCampo} from "../model/ITabelaCampo";
 export class Tabela{
 		@Get()
 		get(req:server.Request,res:server.Response):void{
-			TabelaDAO.findAll({
-				include: [{
-					all: true
-					, nested: false
-					, model: TabelaCampoDAO
-					, required: true
-				}]
-			}).then(function(dta:ITabela[]) {
+			TabelaDAO.findAll().then(function(dta:ITabela[]) {
 				res.json(dta);
 			}).catch(function(err:any) {
 				res.status(400);
@@ -28,7 +21,13 @@ export class Tabela{
 		@Get("/getbyidprojeto/:idprojeto")
 		getByIdProjeto(req: server.Request, res: server.Response): void {
 			TabelaDAO.findAll({
-				where: [{"id_projeto":req.params.idprojeto}]
+                include: [{
+					all: true
+					, nested: false
+					, model: TabelaCampoDAO
+					, required: false
+				}]
+				,where: [{"id_projeto":req.params.idprojeto}]
 			}).then(function(dta: ITabela[]) {
 				res.json(dta);
 			}).catch(function(err: any) {
@@ -86,20 +85,7 @@ export class Tabela{
 				res.json(err);
 			});
 		}
-		//@Delete("/:_id")
-		deleteService(req:server.Request,res:server.Response):void{
-            this.deleteById(req.params._id
-            ,function(rtn:boolean){
-                res.send(true);
-            }
-            ,function(err:any){
-                res.status(400);
-				res.json(err);
-            }
-            );
-		}
-        
-        
+       
         @Delete("/:_id")
 		deleteService2(req:server.Request,res:server.Response):void{            
             TabelaDAO.destroy({
@@ -131,19 +117,30 @@ export class Tabela{
 			});
         }
         
-         deleteByIdProjeto(idprojeto:number,handlerSuccess:(rt:boolean)=>void,handlerError:(perro:any)=>void){
-            return TabelaDAO.destroy({
-				where: {
-					'id_projeto':idprojeto
-				}
-			}).then(function(p_ntabela: ITabela) {
-				var tmpTabelaCampoDBL: TabelaCampo = new TabelaCampo();
-                
-				tmpTabelaCampoDBL.deleteByIdTabela(1).then(function() {					
-                    handlerSuccess(true);
-				}).catch(function(err: any) {
-                    handlerError(err);
-				});
+         deleteByIdProjeto(idprojeto:number,handlerSuccess:(rt:boolean)=>void,handlerError:(perro:any)=>void):void{
+            var tmpTabelaCampoDBL: TabelaCampo = new TabelaCampo();           
+            TabelaDAO.findAll({
+                where:[{"id_projeto":idprojeto}]
+			}).then(function(dta:ITabela[]) {
+				var totalReg:number = dta.length;
+                dta.forEach(function(ittabela:ITabela){
+                    tmpTabelaCampoDBL.deleteByIdTabela(ittabela.id).then(function() {					
+                        totalReg--;
+                        if(totalReg==0){
+                            TabelaDAO.destroy({
+                                where: {
+                                    'id_projeto':idprojeto
+                                }
+                            }).then(function() {				                
+                                handlerSuccess(true);
+                            }).catch(function(err:any) {
+                                handlerError(err);
+                            });
+                        }                        
+                    }).catch(function(err: any) {
+                        handlerError(err);
+                    });
+                });               
 			}).catch(function(err:any) {
 				handlerError(err);
 			});

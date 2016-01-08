@@ -44,7 +44,7 @@
         "src/lib/underas/util.d.ts",
         "src/lib/underas/util/IPaginationParam.d.ts",
         "src/lib/underas/util/ValidationType.d.ts",
-        "./src/lib/restify/restify.d.ts",
+        "src/lib/restify/restify.d.ts",
         "./src/lib/jquery/jquery2.d.ts",
         "./src/lib/jqueryui/jqueryui.d.ts",
         "./src/lib/node/node.d.ts",

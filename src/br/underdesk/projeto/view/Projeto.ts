@@ -1,8 +1,9 @@
 import {ModWindow} from "lib/underas/container";
 import {ToolBar, RequestManager,IDefaultRequest} from "lib/underas/net";
-import {TextInput,ListView,ItemView,TextArea} from "lib/underas/controller";
+import {TextInput,ListView,ItemView,TextArea,Button} from "lib/underas/controller";
 import {IProjeto} from "../model/IProjeto";
 import {Tabela} from "../../tabela/view/Tabela";
+import {UploadProject} from "./UploadProject";
 
 @ItemView("assets/html/projeto.html")
 export class Projeto extends ModWindow {
@@ -10,9 +11,12 @@ export class Projeto extends ModWindow {
     itDsProjeto: TextInput;
     itVersao: TextInput;
     itDetalhes: TextArea;
+    btImportar:Button;
+    btExportar:Button;
     mainList: ListView;
     mainTb: ToolBar;
     _modTabela: Tabela;
+    _uploadProject:UploadProject;
     constructor() {
         super("*Projetos");
         this.setRevision("$Revision$");
@@ -44,7 +48,17 @@ export class Projeto extends ModWindow {
         this.itDetalhes.setLabel("detalhes");
         this.itDetalhes.setColumn("@detalhes");
         this.itDetalhes.setSize(12);
-        this.append(this.itDetalhes);       
+        this.append(this.itDetalhes);   
+        
+        this.btImportar = new Button("importar projeto");
+        this.btImportar.setIcon("cloud-upload");            
+        this.btImportar.addEvent("click",this.showImport.bind(this));
+        this.append(this.btImportar);
+        
+        this.btExportar = new Button("baixar projeto");
+        this.btExportar.setIcon("cloud-download");            
+        this.btExportar.addEvent("click",this.exportProject.bind(this));
+        this.append(this.btExportar);
 
         this.mainList = new ListView("tabelas");
         this.append(this.mainList);
@@ -57,5 +71,16 @@ export class Projeto extends ModWindow {
     onChangeItem(p_obj: IProjeto): IProjeto{
         this._modTabela.getByIdProjeto(p_obj.id);
         return p_obj;
+    }
+    showImport(evt:Event):void{
+        evt.preventDefault();
+        if(!this._uploadProject){
+            this._uploadProject = new UploadProject();
+            $("body").append(this._uploadProject.getEle());
+        };
+        this._uploadProject.show(true);
+    }
+    exportProject():void{
+        console.log(this._modTabela.mainList.getDataProvider());
     }
 }

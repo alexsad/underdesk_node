@@ -1,4 +1,4 @@
-declare module "restify"{
+declare module 'restify'{
       export interface Request {
             body: any;
             params: any;
