@@ -30,6 +30,7 @@ export class TabelaCampo {
 			where: {
 				idTabela: p_idTabela
 			}
+			,order:[["ordem","ASC"]]
 		});
 	}
 

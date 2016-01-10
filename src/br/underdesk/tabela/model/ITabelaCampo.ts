@@ -6,4 +6,5 @@ export interface ITabelaCampo{
     dsCampo:string;
     limite:number;
     snNull:string;
+    ordem:number;
 }
