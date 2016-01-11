@@ -13,6 +13,7 @@ export class TabelaCampo extends ModWindow{
     itTipo:Select;
     itLimite:NumericStepper;
     itSnNull:CheckBox;
+    itOrdem:NumericStepper;
     mainList:ListView;
     mainTb:ToolBar;
     constructor(){
@@ -52,7 +53,7 @@ export class TabelaCampo extends ModWindow{
         this.itTipo = new Select("tipo_campo");
         this.itTipo.setColumn("@tipo");
         this.itTipo.setLabel("tipo do campo");
-        this.itTipo.setSize(12);
+        this.itTipo.setSize(6);
         this.itTipo.setValueField("idTpCampo");
         this.itTipo.setLabelField("dsTpCampo");
         this.append(this.itTipo);
@@ -60,16 +61,28 @@ export class TabelaCampo extends ModWindow{
         this.itLimite = new NumericStepper(1);
         this.itLimite.setColumn("@limite");
         this.itLimite.setLabel("tamanho");
+        this.itLimite.setMin(1);
+        this.itLimite.setMax(999);
+        this.itLimite.setStep(5);
         this.itLimite.setSize(6);
         this.append(this.itLimite);
 
         this.itSnNull = new CheckBox("campo nulo?", "sim");
         this.itSnNull.setColumn("@snNull");
-        this.itSnNull.setLabel("campo nulo?");
+        this.itSnNull.setLabel("nulo?");
         this.itSnNull.setSize(6);
         this.itSnNull.setUnCheckedValue("N");
         this.itSnNull.setCheckedValue("S");
         this.append(this.itSnNull);
+
+        this.itOrdem = new NumericStepper(1);
+        this.itOrdem.setLabel("ordem");
+        this.itOrdem.setColumn("@ordem");
+        this.itOrdem.setSize(6);
+        this.itOrdem.setMin(1);
+        this.itOrdem.setMax(99);
+        this.itOrdem.setStep(5);
+        this.append(this.itOrdem);
 
         this.mainList = new ListView("campos");
         this.append(this.mainList);

@@ -23,11 +23,12 @@ export class Tabela{
 			TabelaDAO.findAll({
                 include: [{
 					all: true
-					, nested: false
+					, nested: true
 					, model: TabelaCampoDAO
 					, required: false
 				}]
 				,where: [{"id_projeto":req.params.idprojeto}]
+				//, order: [[{ model: TabelaCampoDAO, as: 'TabelaCampo' }, 'ordem']]
 			}).then(function(dta: ITabela[]) {
 				res.json(dta);
 			}).catch(function(err: any) {

@@ -21,6 +21,7 @@ var TabelaCampoDAO = sequelize.define('tabela_campo', {
 			}
 		}
 		, "limite": sequelize.constructor.INTEGER
+		, "ordem": sequelize.constructor.INTEGER
 		, "snNull": {
 			type: sequelize.constructor.STRING
 			, field: 'sn_null'
