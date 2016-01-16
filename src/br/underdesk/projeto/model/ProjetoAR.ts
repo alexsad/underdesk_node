@@ -1,4 +1,3 @@
-import {IProjeto} from "./IProjeto";
 import sequelize = require("../../../../config/sequelizedb");
 
 var ProjetoAR = sequelize.define('projeto', {

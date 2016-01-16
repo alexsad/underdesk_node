@@ -4,6 +4,7 @@ import {RequestManager} from "lib/underas/net";
 import {Login} from "../../usuario/view/Login";
 //import {Usuario} from "../../usuario/view/Usuario";
 //import {Perfil} from "../../perfil/view/Perfil";
+//import {Tarefa} from "../../tarefa/view/Tarefa";
 
 //RequestManager.setRootUrl(Underas.getDomain()+":"+8330+"/");
 //console.log(Underas.getDomain());
@@ -14,6 +15,8 @@ var mdw:ModView = new ModView("cadastro de teste!!!");
 mdw.setIcon("globe");
 mdw.show(true);
 mdw.append(modlogin);
+
+//mdw.append(new Tarefa());
 
 /*
 
