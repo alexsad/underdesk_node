@@ -16,4 +16,7 @@ var ${classname}AR = sequelize.define('${classe.dsTabela}', {
 	,"freezeTableName":true
 });
 
+//Relacionamento Exemplo
+//PedidoAR.belongsTo(ClienteAR, { as: 'cliente', foreignKey: 'id_cliente' });
+
 export = ${classname}AR;
