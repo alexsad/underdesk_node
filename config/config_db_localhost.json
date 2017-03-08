@@ -1,0 +1,12 @@
+{
+	"database": "jequiti",
+	"username": "root",
+	"password": "blu3",
+	"dialect": "mariadb",
+	"port": 3306,
+	"pool": {
+		"max": 5,
+		"min": 0,
+		"idle": 10000
+	}
+}

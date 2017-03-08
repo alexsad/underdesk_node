@@ -1,0 +1,46 @@
+<template>
+	<div>
+		<div class="certificado-list ui middle aligned container">
+			<div class="ui right aligned grid">
+			  <div class="right floated left aligned three wide column">
+				<div class="${'ui icon input'+(this.searching?' loading':'')}">
+					<input change.trigger="this.search" keyup.bind="this.term" type="text" placeholder="Pesquisar por pin..."/>
+					<i class="search icon"></i>
+				</div>
+			  </div>
+  			</div>
+			<table class="ui compact celled definition table">
+			<thead>
+				<tr>    
+				<th></th>
+				<th>pin</th>
+				<th>validade</th>
+				<th>ações</th>
+				</tr>
+			</thead>
+			<tbody>		
+				<tr each="certificado in this.certificados">
+					<td>${certificado.id}</td>
+					<td>${certificado.pin}</td>
+					<td>${certificado.validade}</td>
+					<td>
+						<a href="${'/certificado/'+certificado.id+'/'+certificado.pin+'/'+certificado.validade}" class="ui icon button">
+	  						<i class="edit icon"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot class="full-width">
+				<tr>
+				<th></th>
+				<th colspan="4">	
+					<a href="/certificado/adding" class="ui right floated small primary labeled icon button">
+						<i class="user icon"></i> Adicionar
+					</a>
+				</th>
+				</tr>
+			</tfoot>
+			</table>
+		</div>
+	</div>
+</template>

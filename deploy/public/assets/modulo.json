@@ -1,9 +1,0 @@
-[
-{"modulo":"br.underdesk.projeto.view.Projeto","descricao":"Projetos"}
-,{"modulo":"br.underdesk.perfil.view.PerfilViewNotificacao","descricao":"Notificacoes"}
-,{"modulo":"br.underdesk.certificado.view.Certificado","descricao":"Certificado"}
-,{"modulo":"br.underdesk.usuario.view.Usuario","descricao":"Usuarios"}
-,{"modulo":"br.underdesk.perfil.view.Perfil","descricao":"Perfis"}
-,{"modulo":"br.underdesk.tarefa.view.Bloco","descricao":"Blocos de Tarefas"}
-,{"modulo":"br.underdesk.tarefa.view.BlackBoard","descricao":"Blocos de Tarefas"}
-]

@@ -1,0 +1,12 @@
+{
+	"database": "database",
+	"username": "username",
+	"password": "password",
+	"dialect": "sqlite",
+	"pool": {
+		"max": 5,
+		"min": 0,
+		"idle": 10000
+	},
+	"storage": "C:\\mv_mavio\\dbs\\cupon_teste.sqlite"
+}
