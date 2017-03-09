@@ -1,45 +1,29 @@
 <template>
-	<require from="../commons/assets/commons-style.css!"/>
-	<require from="eliorcohen/semantic-ui/dist/semantic.min.css!"/>
+	<require from="../commons/assets/commons-style.css!"/>  
+	<require from="materialize-css/bin/materialize.css!"/>
 	<require from="jquery as jq" type="script"/>	
-	<require from="eliorcohen/semantic-ui/dist/semantic.min as semantic-lib" type="script"/>
-	<require from="ferrugemjs-router as rt" type="namespace"/> 
+	<require from="materialize-css/bin/materialize as semantic-lib" type="script"/>
+  <require from="ferrugemjs-router as rt" type="namespace"/>
   <require from="../menus/main-menu"/>
-  <require from="../menus/apps-menu"/>
-  <require from="../tab-apps/tab-apps"/>
-  <require from="../login/login-form"/>  
-	<style>
-    .box-main-apps{
-      padding:20px;
-    }
-    .init-app > .tab-panel{
-      padding:10px;
-    }
-  </style>
-  <div class="ui init-app">
-    <main-menu 
-      if="this.logged"
-      on-show-menu-apps.subscribe="this.refresh({'menuvisible':true})"
-    /> 
-    <apps-menu if="this.menuvisible" visible="${this.menuvisible}"/>   
-    <login-form if="!this.logged" on-login.once="this.refresh({logged:true})"/>
-    <div class="tab-panel" style="${this.logged?'':'display:none'}">    
-      <tab-apps index="0"/>
-      <div class="ui bottom attached active tab segment">
-          <rt:router-view hashbang="true" style-name="box-main-apps">            
-            <route path="/certificados" view-model="apps/certificado/certificado-list"/>
-            <route path="/certificado/:id/:pin/:validade" view-model="apps/certificado/certificado-detail"/>
-            <route path="/certificado/:status" view-model="apps/certificado/certificado-detail"/>
-            <route path="/garsons" view-model="apps/garson/garson-list"/>
-            <route path="/garson/:id/:garsonNome" view-model="apps/garson/garson-detail"/>
-            <route path="/garson/:status" view-model="apps/garson/garson-detail"/>
-          </rt:router-view>
+  <require from="../modules/module-list"/>
+  <div class="container init-app">
+      <div class="row">
+        <div class="col s12">
+           <main-menu/>
+        </div>
       </div>
-    </div>
-    <rt:router-redirect 
-      if="this.logged" 
-      path="/certificados"
-      timeout="2000"
-    />
+      <div class="row">
+        <div class="col s12">
+           <module-list/>
+        </div>       
+      </div>   
+      <div class="row">
+        <div class="col s12">
+            <rt:router-view hashbang="true">
+              <route path="/module/insert" view-model="apps/modules/module-detail"/>
+              <route path="/module/:id/:state" view-model="apps/modules/module-detail"/>
+            </rt:router-view> 
+        </div>       
+      </div>    
 	</div>
 </template>

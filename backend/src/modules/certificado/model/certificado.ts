@@ -1,4 +1,3 @@
-import {ICertificado} from "./i-certificado";
 import sequelize = require("../../../libs/sequelize/sequelize");
 
 var CertificadoDAO = sequelize.define('certificado', {
@@ -14,4 +13,4 @@ var CertificadoDAO = sequelize.define('certificado', {
 	"timestamps": false
 	, "freezeTableName": true
 });
-export = CertificadoDAO;
+export default CertificadoDAO;

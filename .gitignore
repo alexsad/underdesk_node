@@ -46,3 +46,8 @@ backend/dist
 
 #base
 config/config_db.json
+
+
+#interfaces copy
+frontend/src/interfaces
+backend/src/interfaces

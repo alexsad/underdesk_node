@@ -1,0 +1,19 @@
+<template>
+	<div>			
+	<ul class="collection">
+	    <li each="module in this.modules" class="collection-item avatar">
+	      <i click.trigger="this.select(module.id)" class="${'material-icons circle'+(this.selecteds.indexOf(module.id) > -1?' green accent-3':'')}">done</i>
+	      <span class="title">${module.name}</span>
+	      <p>${module.id} - ${module.name} <br/>
+	         ${module.description}
+	      </p>
+	      <div class="secondary-content">
+	      	<a href="${'module/'+module.id+'/edit'}"><i class="material-icons">mode_edit</i></a>
+	      	<br/>
+	      	<a href="#"><i class="material-icons">view_column</i></a>	      	
+	      </div>
+
+	    </li>
+	  </ul>
+	</div>
+</template>

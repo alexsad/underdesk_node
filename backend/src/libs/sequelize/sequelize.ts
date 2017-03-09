@@ -1,5 +1,3 @@
-/// <reference path="../lib/sequelize/sequelize.d.ts" />
-
 declare let require:any;
 var Model = require('../../../node_modules/sequelize/lib/model');
 Model.prototype.findByIdAssoc = function(p_id:number) {

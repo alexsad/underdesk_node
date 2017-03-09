@@ -14,9 +14,18 @@ function compile_ts(path){
         .pipe(gulp.dest(tsConfig.outDir));
 };
 
-gulp.task('compile',function(){
+gulp.task('copy_interfaces',function(){
+    return gulp.src([
+        "../interfaces/*.ts"
+    ])
+    .pipe(gulp.dest("src/interfaces"));
+});
+
+gulp.task('compile',['copy_interfaces'],function(){
     return  compile_ts("./src/**/*.ts");
 });
+
+
 
 module.exports = compile_ts;
 

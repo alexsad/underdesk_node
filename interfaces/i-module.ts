@@ -1,7 +1,8 @@
-import {IModuleColumn} from "../../module-column/model/i-module-column";
+import {IModuleColumn} from "./i-module-column";
 
 export interface IModule{
     id?:number;
+    name:string;
     description:string;
     columns?:IModuleColumn[];
 }

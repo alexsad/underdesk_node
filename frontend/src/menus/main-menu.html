@@ -1,14 +1,13 @@
 <template>	
-	<div class="ui menu main-menu">
-	  <a class="item" click.trigger="this.showMenuApps(true)">
-	    <i class="content icon"></i>
-	  </a>
-	  <div class="right menu">
-	    <a class="item" href="#">Sign Up</a>
-	    <a class="item">
-    		<i class="help circle icon"></i>
-    		Ajuda
-  		</a>
-	  </div>
-	</div>
+  <div class="fixed-action-btn horizontal" style="top:20px">
+    <a class="btn-floating btn-large green">
+      <i class="large material-icons">reorder</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating blue" href="module/insert"><i class="material-icons">add</i></a></li>
+      <li><a class="btn-floating red" click.trigger="this.removeSelecteds"><i class="material-icons">delete</i></a></li>      
+      <li><a class="btn-floating darken-1" click.trigger="this.selectall(true)"><i class="material-icons">done_all</i></a></li>
+      <li><a class="btn-floating grey lighten-1" click.trigger="this.selectall(false)"><i class="material-icons">clear_all</i></a></li>
+    </ul>
+  </div>
 </template>

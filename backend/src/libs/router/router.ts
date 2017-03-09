@@ -67,11 +67,13 @@ export function Controller(p_root?: string): ClassDecorator {
                 //, target.prototype[route.handlerName].bind(tmpElement)
                 ,(req:IRequestType,res:IResponseType)=>{
                    target.prototype[route.handlerName]
-                        .apply(tmpElement,[route.verb=="get"||route.verb=="delete"?req.params:req.body])
-                        .then((dta:any)=>res.json(dta))
+                        .apply(tmpElement,[route.verb=="get"||route.verb=="del"||route.verb=="delete"?req.params:req.body])
+                        .then((dta:any)=>{
+                          res.json(dta||{});                         
+                        })
                         .catch((err:any)=>{
-                            res.status(400);
-                            res.json(err);
+                          res.status(400);
+                          res.json(err);
                         });
                 }
             );

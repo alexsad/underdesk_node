@@ -1,6 +1,6 @@
 import {IDOMEvent} from "../commons/i-event";
 import certificadoStore from "./certificado-store";
-import {ICertificado} from "./i-certificado";
+import {ICertificado} from "../interfaces/i-certificado";
 import {IEventSubscribe} from "event-emitter-lite";
 
 export class CertificadoList{

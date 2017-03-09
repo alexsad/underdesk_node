@@ -1,12 +1,12 @@
 import {Get,Post,Put,Delete,Controller} from "../../../libs/router/router";
-import CertificadoAR = require("../model/certificado");
-import {ICertificado} from "../model/i-certificado";
+import certificadoAR from "../model/certificado";
+import {ICertificado} from "../../../interfaces/i-certificado";
 
 @Controller()
 export class Certificado{
 	@Get()
 	get():Promise<ICertificado[]>{
-		return CertificadoAR
+		return certificadoAR
 		.findAll({
 			 	order: [
 			  		['id', 'DESC']
@@ -15,7 +15,7 @@ export class Certificado{
 	}
 	@Get("/:pin")
 	getByPin(pcertificado:ICertificado):Promise<ICertificado[]>{
-		return CertificadoAR
+		return certificadoAR
 		.findAll({
 				where:{
 					pin:{$like:'%'+pcertificado.pin+'%'}
@@ -27,20 +27,20 @@ export class Certificado{
 	}
 	@Post()
 	add(ncertificado:ICertificado):Promise<ICertificado>{
-		return CertificadoAR
+		return certificadoAR
 		.create(ncertificado);
 	}
 	@Put()
 	atualizar(pcertificado: ICertificado):Promise<ICertificado>{
 		return new Promise<ICertificado>((resolve,reject)=>{
-			CertificadoAR.upsert(pcertificado).then(()=>{
+			certificadoAR.upsert(pcertificado).then(()=>{
 				resolve(pcertificado);
 			}).catch((err:string)=>reject(err));
 		})
 	}
 	@Delete("/:id")
 	delete(pcertificado:ICertificado):Promise<ICertificado>{
-		return CertificadoAR.destroy({
+		return certificadoAR.destroy({
 			where: {
 				id:pcertificado.id
 			}

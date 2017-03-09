@@ -1,6 +1,6 @@
 import {Get,Post,Put,Delete,Controller} from "../../../libs/router/router";
 import moduleColumnAR from "../model/module-column";
-import {IModuleColumn} from "../model/i-module-column";
+import {IModuleColumn} from "../../../interfaces/i-module-column";
 
 @Controller()
 export class ModuleColumn{

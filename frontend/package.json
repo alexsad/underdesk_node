@@ -22,8 +22,10 @@
       "event-emitter-lite": "npm:event-emitter-lite@^1.0.5",
       "ferrugemjs": "npm:ferrugemjs@^0.11.8",
       "ferrugemjs-router": "npm:ferrugemjs-router@^0.0.11",
+      "hammerjs": "npm:hammerjs@^2.0.8",
       "incremental-dom": "npm:incremental-dom@^0.5.1",
-      "jquery": "npm:jquery@^3.1.1",
+      "materialize-css": "npm:materialize-css@^0.98.0",
+      "pickadate": "npm:pickadate@^3.5.6",
       "promised-xhr": "npm:promised-xhr@^1.2.0",
       "tslib": "npm:tslib@1.5.0"
     },

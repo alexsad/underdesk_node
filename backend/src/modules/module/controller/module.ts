@@ -1,6 +1,6 @@
 import {Get,Post,Put,Delete,Controller} from "../../../libs/router/router";
 import moduleAR from "../model/module";
-import {IModule} from "../model/i-module";
+import {IModule} from "../../../interfaces/i-module";
 
 @Controller()
 export class Module{

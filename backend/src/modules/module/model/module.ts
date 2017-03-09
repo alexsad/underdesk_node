@@ -7,7 +7,8 @@ var ModuleDAO = sequelize.define('module', {
 		,primaryKey: true
 		,autoIncrement: true
 	}
-	,"desc": sequelize.constructor.STRING	
+	,"name": sequelize.constructor.STRING
+	,"description": sequelize.constructor.STRING	
 }, {
 	"timestamps": false
 	, "freezeTableName": true

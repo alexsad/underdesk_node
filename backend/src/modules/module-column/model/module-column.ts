@@ -1,5 +1,4 @@
 import moduleDAO from "../../module/model/module";
-import {IModuleColumn} from "./i-module-column";
 import sequelize = require("../../../libs/sequelize/sequelize");
 
 var ModuleColumnDAO = sequelize.define('module_column', {
@@ -9,6 +8,7 @@ var ModuleColumnDAO = sequelize.define('module_column', {
 		,primaryKey: true
 		,autoIncrement: true
 	}
+	,"name": sequelize.constructor.STRING
 	,"description": sequelize.constructor.STRING
 	,"type": sequelize.constructor.STRING
 	,"details": sequelize.constructor.STRING

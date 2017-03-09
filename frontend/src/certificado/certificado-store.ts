@@ -1,6 +1,6 @@
 import $xhr = require("promised-xhr");
 import {EventEmitter} from "event-emitter-lite";
-import {ICertificado} from "./i-certificado";
+import {ICertificado} from "../interfaces/i-certificado";
 
 class CertificadoStore{
 	public onChange:EventEmitter<ICertificado> = new EventEmitter();

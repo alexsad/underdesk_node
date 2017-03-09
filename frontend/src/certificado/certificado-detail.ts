@@ -1,4 +1,4 @@
-import {ICertificado} from "./i-certificado";
+import {ICertificado} from "../interfaces/i-certificado";
 import certificadoStore from "./certificado-store";
 
 export class CertificadoDetail implements ICertificado{
